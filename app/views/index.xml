@@ -1,5 +1,5 @@
 <Alloy>
-	<Window class="container">
+	<Window id="win" class="container" onpause="pause">
 		<View id="openGlContainer" 
 			  top="0" 
 			  left="0" 
@@ -7,6 +7,8 @@
 			  height="Ti.UI.FILL">
 				<!--<GLView id="glView" module="glview" ondraw="draw()"/>-->
 		</View>
+			<Button top="10" onClick="pause">pause</Button>
+			<Button top="50" onClick="resume">resume</Button>
 		<Label id="label" 
 				bottom="10dp" 
 				left="10dp"

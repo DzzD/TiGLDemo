@@ -1,7 +1,4 @@
 import Activity from "android.app.Activity";
-import _GLView from "fr.dzzd.glsprite.GLView";
-import _GLEntity from "fr.dzzd.glsprite.GLEntity";
-import _GLSprite from "fr.dzzd.glsprite.GLSprite";
 
 
 var GLView = require ("glview");
@@ -9,19 +6,56 @@ var GLView = require ("glview");
 
 var glView =new GLView();
 
+/*
 
-glView.oninit=function (glView)
+Ti.App.addEventListener('resume', () => 
+{
+	Ti.API.info("Ti.App RESUME");
+    glView.onPause();
+});
+
+Ti.App.addEventListener('pause', () => {
+    Ti.API.info('PAUSE');
+    glView.onPause();
+});
+
+
+Ti.App.addEventListener('pause', () => {
+    Ti.API.info('PAUSE');
+    glView.onPause();
+});
+*/
+
+var act = Ti.Android.currentActivity;
+
+
+
+
+
+glView.oninit = function (glView)
 {
 	this.scene = this.getScene();
 	this.nb = 32;
 	glView.addSprite({url : "Resources/background.png", width : glView.getWidth(), height: glView.getHeight(), tile : "true"});
 	for(let n = 1; n < this.nb*this.nb; n++)
 	{
-		glView.addSprite({url : "Resources/robot.png", width : "50", height: "50"});
+		switch(n%3)
+		{
+			case 0:
+				glView.addSprite({url : "Resources/robot.png", width : "50", height: "50"});
+			break;
+			case 1:
+				glView.addSprite({url : "Resources/robot2.png", width : "50", height: "50"});
+			break;
+			case 2:
+				glView.addSprite({url : "Resources/robot3.png", width : "50", height: "50"});
+			break;
+		}
 	}
 }
 
-glView.onloop=function (glView)
+
+glView.onloop = function (glView)
 {
 	var now = Date.now();
 	var spaceX = this.width / this.nb;
@@ -39,5 +73,20 @@ glView.onloop=function (glView)
 }
 
 
+
+function pause()
+{
+	Ti.API.info('Ti.App PAUSE');
+	glView.onPause();
+}
+
+function resume()
+{
+	Ti.API.info("Ti.App RESUME");
+	glView.onResume();
+}
+
 $.openGlContainer.add(glView);
-$.index.open();
+
+
+$.win.open();

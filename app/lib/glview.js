@@ -1,30 +1,10 @@
 import _GLView from "fr.dzzd.glsprite.GLView";
 import _GLEntity from "fr.dzzd.glsprite.GLEntity";
 import _GLSprite from "fr.dzzd.glsprite.GLSprite";
+import _GLScene from "fr.dzzd.glsprite.GLScene";
 
 var GLView = _GLView.extend(
 {
-		/*
-		this.nb = 32;
-		
-		Ti.API.info("GameView.onCreated()");
-		
-        this.nb = 32;
-		this.lastUpdateBulkPos = new Array();
-		
-        this.frameCount = 0;
-        this.startTime = 0;
-		
-
-		//Load sprites
-		this.addSprite({url : "Resources/background.png", width : this.getWidth(), height: this.getHeight(), tile : "true"});
-		for(let n = 1; n < this.nb*this.nb; n++)
-		{
-			this.addSprite({url : "Resources/robot.png", width : "50", height: "50"});
-		}
-		*/
-	
-
 	onCreated : function() 
     {
 		Ti.API.info("_GLView.onCreated()");
