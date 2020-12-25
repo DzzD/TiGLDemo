@@ -1,0 +1,24 @@
+<Alloy>
+	<Window class="container">
+		<View id="openGlContainer" 
+			  top="0" 
+			  left="0" 
+			  width="Ti.UI.FILL" 
+			  height="Ti.UI.FILL">
+				<!--<GLView id="glView" module="glview" ondraw="draw()"/>-->
+		</View>
+		<Label id="label" 
+				bottom="10dp" 
+				left="10dp"
+				right="10dp"
+			    width="Ti.UI.FILL"
+				fontSize="14dp"
+				height="50dp"
+			  	backgroundColor="#ccffffff"
+				borderWidth="5dp"
+				borderColor="#aaaaaa"
+				textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">
+			Center text
+		</Label>
+	</Window>
+</Alloy>
