@@ -49,8 +49,7 @@
     </manifest>
   </android>
   <modules>
-    <module platform="android">hyperloop</module>
-    <module platform="commonjs">ti.cloud</module>
+    <module platform="android">fr.dzzd.glsprite</module>
   </modules>
   <deployment-targets>
     <target device="windows">false</target>

@@ -1,14 +1,14 @@
 <Alloy>
-	<Window id="win" class="container" onpause="pause">
+	<Window id="win" class="container" >
 		<View id="openGlContainer" 
 			  top="0" 
 			  left="0" 
 			  width="Ti.UI.FILL" 
 			  height="Ti.UI.FILL">
-				<!--<GLView id="glView" module="glview" ondraw="draw()"/>-->
+				<TIGLView id="glView" module="fr.dzzd.glsprite" onInit="init" onResize="resize" onLoop="loop" />
 		</View>
-			<Button top="10" onClick="pause">pause</Button>
-			<Button top="50" onClick="resume">resume</Button>
+		<Button bottom="100" onClick="openScreen">screen 2</Button>
+		
 		<Label id="label" 
 				bottom="10dp" 
 				left="10dp"

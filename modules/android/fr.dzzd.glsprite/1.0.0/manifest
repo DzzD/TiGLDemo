@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 1.0.0
+apiversion: 4
+architectures: arm64-v8a armeabi-v7a x86 x86_64
+description: glsprite
+author: DzzD
+license: Specify your license
+copyright: Copyright (c) 2020 by Your Company
+
+# these should not be edited
+name: glsprite
+moduleid: fr.dzzd.glsprite
+guid: 222a00af-7099-4a0b-b2e9-a2af4fffd0ba
+platform: android
+minsdk: 9.2.2.GA

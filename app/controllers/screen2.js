@@ -1,4 +1,10 @@
-import Activity from "android.app.Activity";
+function openIndex()
+{
+	var screen = Alloy.createController('index').getView();
+	screen.open();
+}
 
-// Arguments passed into this controller can be accessed via the `$.args` object directly or:
-var args = $.args;
+function close()
+{
+	$.win.close();
+}

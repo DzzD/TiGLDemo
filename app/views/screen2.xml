@@ -1,4 +1,8 @@
 <Alloy>
-	<View class="container">
+	<Window id="win" class="container" >
+	<View class="container" layout="vertical">
+		<Button  onClick="openIndex">screen 1</Button>
+		<Button  onClick="close">close</Button>
 	</View>
+	</Window>
 </Alloy>
