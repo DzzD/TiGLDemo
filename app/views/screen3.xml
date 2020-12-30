@@ -1,0 +1,23 @@
+<Alloy>
+<Window class="container">
+<ActionBar id="actionbar" 
+	            homeButtonEnabled="true" title="My XML Menu " displayHomeAsUp="true" homeButtonEnabled="true" />
+		 <Toolbar
+	            title="MyMenu"
+	            subtitle="Subtitle"
+	            width="Ti.UI.FILL"
+	            top="0"
+	            barColor="#639851"
+	            displayHomeAsUp="true"
+	            homeButtonEnabled="true"
+	            overflowIcon="appicon.png">
+				 <Items>
+	                <Button id="ok" title="OK"/>
+	                <Button id="cancel" title="Cancel"/>
+	            </Items>
+	        </Toolbar>
+	<View class="container">
+	<WebView url="local.html" width="Ti.UI.FILL" scalesPageToFit="true" height="50%" bottom="0" right="0"/>
+	</View>
+	</Window>
+</Alloy>

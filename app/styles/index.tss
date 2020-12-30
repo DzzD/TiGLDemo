@@ -1,15 +1,43 @@
-".container": {
-	backgroundColor:"white"
+".container": 
+{
+	layout: "vertical",
+	backgroundcolor:"white",
+	fullscreen:true 
 }
 
-"Label": {
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	color: "#000"
-}
 
-"#label": {
-	font: {
+"#label": 
+{
+	font: 
+	{
 		fontSize: 12
 	}
+}
+
+
+".menu": 
+{
+	font: 
+	{
+		fontSize: 12
+	},
+	layout: "vertical",
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	borderWidth: '1dp',
+    borderColor: 'blue'
+}
+
+".menuButton": 
+{
+	font: 
+	{
+		fontSize: 14
+	},
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	top:0,
+	bottom:0,
+	height:80,
+	borderWidth: '1dp'
 }

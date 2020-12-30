@@ -1,26 +1,10 @@
 <Alloy>
-	<Window id="win" class="container" >
-		<View id="openGlContainer" 
-			  top="0" 
-			  left="0" 
-			  width="Ti.UI.FILL" 
-			  height="Ti.UI.FILL">
-				<TIGLView id="glView" module="fr.dzzd.glsprite" onInit="init" onResize="resize" onLoop="loop" />
+	<Window id="win" class="container" exitOnClose="true">
+		<ActionBar id="actionbar" logo="/logo.png" title="CollegeWorld" />
+		<View class="menu">
+			<Button class="menuButton" onClick="openScreen">3600 Benchmark</Button>
+			<Button class="menuButton" onClick="openScreen3">screen 2</Button>
+			<Button class="menuButton" >screen 3</Button>
 		</View>
-		<Button bottom="100" onClick="openScreen">screen 2</Button>
-		
-		<Label id="label" 
-				bottom="10dp" 
-				left="10dp"
-				right="10dp"
-			    width="Ti.UI.FILL"
-				fontSize="14dp"
-				height="50dp"
-			  	backgroundColor="#ccffffff"
-				borderWidth="5dp"
-				borderColor="#aaaaaa"
-				textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">
-			Center text
-		</Label>
 	</Window>
 </Alloy>

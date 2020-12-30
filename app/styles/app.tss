@@ -11,16 +11,25 @@ For example, the following would apply to all labels, windows,
 and text fields (depending on platform) in your app unless you
 overrode the settings with other TSS, XML, or JS settings:
 
-'Label[platform=android,windows]': {
-	color: '#000' // all platforms except Android and Windows default to black
+*/
+'Label[platform=android,windows]': 
+{
+	color: '#fff' // all platforms except Android and Windows default to black
 }
 
-'Window': {
+'Window': 
+{
 	backgroundColor: '#fff' // white background instead of default transparent or black
 }
 
-'TextField[platform=android]': {
+'TextField[platform=android]': 
+{
 	height: Ti.UI.SIZE
 }
 
-*/
+".container": 
+{
+	layout: "vertical",
+	backgroundcolor:"white",
+	fullscreen:true 
+}
