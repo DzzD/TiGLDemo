@@ -1,5 +1,24 @@
 
+
+function openDemo1()
+{
+	var view = Alloy.createController('demo1').getView();
+	view.open();
+}
+
+
+
+
+/*
+ *Todo: clean below...
+ */
 function openScreen()
+{
+	var screen = Alloy.createController('screen').getView();
+	screen.open();
+}
+
+function openScreen2()
 {
 	var screen = Alloy.createController('screen2').getView();
 	screen.open();
