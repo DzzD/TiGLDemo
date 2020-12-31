@@ -1,6 +1,6 @@
 <Alloy>
 	<Window id="win" class="container" onClose="close">
-	<ActionBar id="actionbar" title="My XML Menu " onHomeIconItemSelected="doClick" />
+	<ActionBar id="actionbar" title="My XML Menu " onHomeIconItemSelected="" />
 		 <Toolbar
 	            title="MyMenu"
 	            subtitle="Subtitle"
