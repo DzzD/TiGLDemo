@@ -1,4 +1,6 @@
 
-".container" : {
-  
+".container" : 
+{
+    title: "TIGL: Loading sprite",
+    logo: "/logo.png",
 }
