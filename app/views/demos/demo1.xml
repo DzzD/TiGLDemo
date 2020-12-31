@@ -1,5 +1,0 @@
-<Alloy>
-	<Window id="win" class="container">
-		<TIGLView id="glView" module="fr.dzzd.glsprite" onInit="init" />
-	</Window>
-</Alloy>+

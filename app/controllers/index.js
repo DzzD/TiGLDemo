@@ -1,8 +1,15 @@
 
 
-function openDemo1()
+function open1LoadingSprite()
 {
-	var view = Alloy.createController('demos/demo1').getView();
+	var view = Alloy.createController('demos/1-LoadingSprite').getView();
+	view.open();
+}
+
+
+function open2MovingSprite()
+{
+	var view = Alloy.createController('demos/2-MovingSprite').getView();
 	view.open();
 }
 
@@ -12,11 +19,6 @@ function openDemo1()
 /*
  *Todo: clean below...
  */
-function openScreen()
-{
-	var screen = Alloy.createController('screen').getView();
-	screen.open();
-}
 
 function openScreen2()
 {

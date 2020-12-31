@@ -1,11 +1,12 @@
 <Alloy>
 	<Window id="win" class="container" exitOnClose="true">
-		<ActionBar id="actionbar" logo="/logo.png" title="TIGL Demo" />
+		<ActionBar id="actionbar" logo="/logo.png" />
 		<View class="menu">
-			<Button class="menuButton" onClick="openDemo1">Démo 1</Button>
-			<Button class="menuButton" onClick="openScreen2">Démo 2</Button>
-			<Button class="menuButton" onClick="openScreen3">Démo 3</Button>
-			<Button class="menuButton" onClick="openScreen">WIP Bench3600</Button>
+			<Button class="menuButton" onClick="open1LoadingSprite">Loading sprite</Button>
+			<Button class="menuButton" onClick="open2MovingSprite">Moving sprite</Button>
+			<Button class="menuButton" onClick="openScreen3">Animating sprite</Button>
+			<Button class="menuButton" onClick="openScreen3">Loading tiling background</Button>
+			<Button class="menuButton" onClick="openScreen2">WIP Bench3600</Button>
 		</View>
 	</Window>
 </Alloy>
