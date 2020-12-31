@@ -11,7 +11,7 @@
   <icon>appicon.png</icon>
   <fullscreen>false</fullscreen>
   <navbar-hidden>false</navbar-hidden>
-  <analytics>true</analytics>
+  <analytics>false</analytics>
   <guid>d9bd5f43-724e-4993-9aaa-b3b2cf131b80</guid>
   <property name="ti.ui.defaultunit" type="string">dp</property>
   <property name="run-on-main-thread" type="bool">true</property>
@@ -64,20 +64,4 @@
   </plugins>
   <property name="ti.android.compilejs">true</property>
   <property name="appc-app-id" type="string">5fcd095ce86a692c0ede6280</property>
-  <property name="acs-authbase-url-development" type="string"/>
-  <property name="acs-base-url-development" type="string">https://api.cloud.appcelerator.com</property>
-  <property name="acs-oauth-secret-development" type="string">4SspCYh8n31Rt7i6WtMHC3KyqcvAJAUs</property>
-  <property name="acs-oauth-key-development" type="string">9CYW7s0PpCCtGTuRfiL1ZOPABo6Y6RTn</property>
-  <property name="acs-api-key-development" type="string">fEbVPxK7TRocSiY27Y2m1aNaBhYFQhZc</property>
-  <property name="acs-username-development" type="string">appc_app_user_dev</property>
-  <property name="acs-password-development" type="string">AuQoxI5fptIy4sz8Cu</property>
-  <property name="acs-authbase-url-production" type="string"/>
-  <property name="acs-base-url-production" type="string">https://api.cloud.appcelerator.com</property>
-  <property name="acs-oauth-secret-production" type="string">mS9mIhaStfQlQ6FAPl6Kn8itmed5Aos4</property>
-  <property name="acs-oauth-key-production" type="string">byvMffvoFxZSY0RcQWq6RsG8K9aFSH7E</property>
-  <property name="acs-api-key-production" type="string">kaJHRPv6MXHXTwxTJ8UlXqhWzDx9YjCE</property>
-  <property name="acs-username-production" type="string">appc_app_user</property>
-  <property name="acs-password-production" type="string">IuqxAo6AT68ybYI0Qi</property>
-  <property name="appc-org-id" type="string">175311225527096</property>
-  <property name="appc-creator-user-id" type="string">657d88e8-3908-48a2-b671-bce32555b0ea</property>
 </ti:app>

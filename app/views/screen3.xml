@@ -17,7 +17,7 @@
             </Items>
         </Toolbar>
 	<View class="container">
-	<WebView url="local.html" width="Ti.UI.FILL" scalesPageToFit="true" height="50%" bottom="0" right="0"/>
+	<WebView url="/local.html" width="Ti.UI.FILL" scalesPageToFit="true" height="50%" bottom="0" right="0"/>
 	</View>
 	</Window>
 </Alloy>
