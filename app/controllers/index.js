@@ -2,7 +2,7 @@
 
 function openDemo1()
 {
-	var view = Alloy.createController('demo1').getView();
+	var view = Alloy.createController('demos/demo1').getView();
 	view.open();
 }
 
