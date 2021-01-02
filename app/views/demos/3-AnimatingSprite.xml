@@ -1,6 +1,6 @@
 <Alloy>
 	<Window id="win">
 		<ActionBar id="actionbar"/>
-		<TIGLView id="glView" module="fr.dzzd.glsprite" onInit="init" onLoop="loop" onResize="resize" units="dp"/>
+		<TIGLView id="glView" module="fr.dzzd.glsprite" onInit="init" onResize="resize" units="dp"/>
 	</Window>
 </Alloy>
