@@ -1,26 +1,8 @@
-
-
-
-"#label": 
-{
-	font: 
-	{
-		fontSize: 12
-	}
-}
-
-
 ".menu": 
 {
-	font: 
-	{
-		fontSize: 12
-	},
 	layout: "vertical",
 	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
-	borderWidth: '1dp',
-    borderColor: 'blue'
 }
 
 ".menuButton": 
@@ -31,8 +13,5 @@
 	},
 	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
-	top:0,
-	bottom:0,
 	height:80,
-	borderWidth: '1dp'
 }

@@ -13,6 +13,12 @@ function open2MovingSprite()
 	view.open();
 }
 
+function open3AnimatingSprite()
+{
+	var view = Alloy.createController('demos/3-AnimatingSprite').getView();
+	view.open();
+}
+
 
 
 

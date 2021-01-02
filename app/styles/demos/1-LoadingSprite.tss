@@ -1,6 +1,5 @@
 
-".container" : 
+"#win" : 
 {
-    title: "TIGL: Loading sprite",
-    logo: "/logo.png",
+    title: "TIGL: Loading sprite"
 }

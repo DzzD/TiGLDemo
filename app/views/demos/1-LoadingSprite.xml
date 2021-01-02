@@ -1,6 +1,6 @@
 <Alloy>
-	<Window id="win" class="container" >
-		<ActionBar id="actionbar" logo="/logo.png" />
+	<Window id="win">
+		<ActionBar id="actionbar"/>
 		<TIGLView id="glView" module="fr.dzzd.glsprite" onInit="init" units="dp"/>
 	</Window>
 </Alloy>

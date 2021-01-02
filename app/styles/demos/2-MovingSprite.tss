@@ -1,4 +1,5 @@
 
-".container" : {
-  
+"#win" : 
+{
+    title: "TIGL: Moving sprite"
 }

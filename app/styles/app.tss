@@ -27,9 +27,15 @@ overrode the settings with other TSS, XML, or JS settings:
 	height: Ti.UI.SIZE
 }
 
-".container": 
+"#win": 
 {
 	layout: "vertical",
-	backgroundcolor:"white",
-	fullscreen:true 
+	backgroundcolor: "white",
+	fullscreen: true 
+}
+
+"#actionbar" : 
+{
+    logo: "/logo.png",
+	homeButtonEnabled: true,
 }

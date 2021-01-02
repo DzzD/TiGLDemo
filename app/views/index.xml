@@ -1,10 +1,10 @@
 <Alloy>
 	<Window id="win" class="container" exitOnClose="true">
-		<ActionBar id="actionbar" logo="/logo.png" />
+		<ActionBar id="actionbar" />
 		<View class="menu">
 			<Button class="menuButton" onClick="open1LoadingSprite">Loading sprite</Button>
 			<Button class="menuButton" onClick="open2MovingSprite">Moving sprite</Button>
-			<Button class="menuButton" onClick="openScreen3">Animating sprite</Button>
+			<Button class="menuButton" onClick="open3AnimatingSprite">Animating sprite</Button>
 			<Button class="menuButton" onClick="openScreen3">Loading tiling background</Button>
 			<Button class="menuButton" onClick="openScreen2">WIP Bench3600</Button>
 		</View>
