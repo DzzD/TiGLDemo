@@ -1,4 +1,10 @@
 
-".container" : {
-  
+"Window" : 
+{
+    title: "  TIGL: Benchmark 3600 "
+}
+
+'WebView' :
+{
+	url: "/html/Benchmark3600.html" 
 }

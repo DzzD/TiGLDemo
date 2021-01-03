@@ -34,7 +34,7 @@ function openMoreDemo()
 {
 	var dialog = Ti.UI.createAlertDialog({
 		cancel: 1,
-		buttonNames: ['Cancel'],
+		buttonNames: ['Ok'],
 		message: 'New demos and tutorials will be added shortly',
 		title: 'More to come'
 	  });	

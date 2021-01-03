@@ -27,3 +27,9 @@
 	borderRadius: "4dp",
 	color: "#fff"
 }
+
+".menuButton[formFactor=tablet]": 
+{
+	left: "20dp",
+	right: "20dp"
+}

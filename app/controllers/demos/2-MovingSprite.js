@@ -12,7 +12,7 @@ function init()
 	* For Alloy project, at runtime "assets" folder become "Resources" folder
 	*/
     spriteUid = this.addSprite({url: "Resources/sprite.png", x: 0, y: 50});
-    this.setEntityPivotById(spriteUid, 128, 160);
+    this.setEntityPivotById(spriteUid, 128, 125);
     posX = 128;
     direction=-1;
 }

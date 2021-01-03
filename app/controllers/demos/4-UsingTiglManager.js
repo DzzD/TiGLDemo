@@ -43,6 +43,7 @@ function loop()
      * Modify an entity properties
      */
     myEntity.x = Math.cos(Date.now() * 0.001) * width * 0.5 - 128 + width * 0.5;
+    myEntity.y = height * 0.5 - 128;
 
     /*
      * Send data to Java TIGL module

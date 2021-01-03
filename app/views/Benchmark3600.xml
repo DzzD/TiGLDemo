@@ -1,11 +1,7 @@
 <Alloy>
 	<Window>
 	<ActionBar/>
-		<View id="openGlContainer" top="0" left="0" width="Ti.UI.FILL" height="Ti.UI.FILL">
-				<TIGLView id="glView" module="fr.dzzd.glsprite" onInit="init" onResize="resize" onLoop="loop" backgroundcolor="white"/>
-		</View>
-		<View class="container" layout="vertical">
-			<Button  onClick="close2">close</Button>
-		</View>
+		<TIGLView module="fr.dzzd.glsprite" onInit="init" onResize="resize" onLoop="loop" units="px" backgroundcolor="white"/>
+		<WebView/>
 	</Window>
 </Alloy>

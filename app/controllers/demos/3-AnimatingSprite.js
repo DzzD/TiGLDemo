@@ -39,5 +39,5 @@ function resize(e)
     /*
      * Center sprite 4
      */
-    this.setEntityPositionById(sprite4Uid, width * 0.5 - 128, height * 0.5 - 160);
+    this.setEntityPositionById(sprite4Uid, width * 0.5 - 128, height * 0.5 - 138);
 }

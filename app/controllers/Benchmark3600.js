@@ -1,14 +1,4 @@
 
-function close()
-{
-	Ti.API.info("Window closed");
-}
-
-
-function close2()
-{
-	$.win.close();
-}
 
 var FPS = require("fps");
 fps = new FPS();
@@ -63,7 +53,6 @@ function loop(e)
 {
 	
 	fps.start();
-	//Ti.API.info("loop started " + this.entities.length);
 	var packedPos = new Array();
 	var now = Date.now();
 	var spaceX = this.viewW / this.nb;
@@ -72,8 +61,8 @@ function loop(e)
 	var n = 0;
 	for(let n = 0; n < this.entities.length; n++)
 	{
-		var x = (n%this.nb) * spaceX + Math.cos(n + angle) * spaceX;
-		var y = (n/this.nb) * spaceY + Math.sin(n + angle) * spaceY;
+		var x = (n%this.nb) * spaceX + Math.cos(n + angle) * spaceX - 25;
+		var y = (n/this.nb) * spaceY + Math.sin(n + angle) * spaceY - 25;
 		this.entities[n].x = x;
 		this.entities[n].y = y;
 		/*
@@ -93,6 +82,3 @@ function loop(e)
 	fps.end();
 	
 }
-
-
-$.win.open();
