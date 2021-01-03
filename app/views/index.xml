@@ -5,9 +5,15 @@
 			<Button class="menuButton" onClick="open1LoadingSprite">Loading sprite</Button>
 			<Button class="menuButton" onClick="open2MovingSprite">Moving sprite</Button>
 			<Button class="menuButton" onClick="open3AnimatingSprite">Animating sprite</Button>
-			<Button class="menuButton" onClick="open4UsingTiglManager">Using TIGLManager</Button>
-			<Button class="menuButton" onClick="openScreen3">Loading tiling background</Button>
-			<Button class="menuButton" onClick="openScreen2">WIP Bench3600</Button>
+			<Button class="menuButton" onClick="open4UsingTiglManager">Using TIGL Manager</Button>
+			<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+			<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+			<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+			<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+			<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+			<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+			<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+			<Button class="menuButton" onClick="openBenchmark3600">Benchmark 3600 sprites</Button>
 		</View>
 	</Window>
 </Alloy>

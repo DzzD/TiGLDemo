@@ -15,9 +15,15 @@
 {
 	font: 
 	{
-		fontSize: 14
+		fontSize: 16
 	},
+	opacity: 0.7,
 	width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 	height:80,
+	backgroundColor: '#333333',
+	borderWidth: "5dp",
+	borderColor: "transparent",
+	borderRadius: "4dp",
+	color: "#fff"
 }

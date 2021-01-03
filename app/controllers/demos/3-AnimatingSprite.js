@@ -4,6 +4,7 @@ var sprite2Uid;
 var sprite3Uid;
 var sprite4Uid;
 var width;
+var height;
 
 /*
  * Init must be declared as an attribute of the Alloy tag TIGLView (eg: onInit="init")
@@ -18,7 +19,9 @@ function init()
     sprite3Uid = this.addSprite({url: "Resources/numbersBlue.png", x: 46*2, y: 0, width: 46, height: 46});
     sprite4Uid = this.addSprite({url: "Resources/spritesheet.png", x: 100, y: 50, width: 256, height: 256});
 
-
+    /*
+     * Play some animations with different parameters
+     */
     this.playEntityAnimationById(sprite1Uid, {duration: 5000});
     this.playEntityAnimationById(sprite2Uid, {duration: 5000, start: 9, end: 0});
     this.playEntityAnimationById(sprite3Uid, {duration: 4000, pingpong: true, loop: 50});
@@ -32,7 +35,9 @@ function init()
 function resize(e)
 {
     width = e.width;
-    this.setEntityPositionById(sprite4Uid, width * 0.5 - 128, 50);
+    height = e.height;
+    /*
+     * Center sprite 4
+     */
+    this.setEntityPositionById(sprite4Uid, width * 0.5 - 128, height * 0.5 - 160);
 }
-
-$.win.open();

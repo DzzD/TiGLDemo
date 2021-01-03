@@ -24,6 +24,28 @@ function open4UsingTiglManager()
 	view.open();
 }
 
+function open4UsingTiglManager()
+{
+	var view = Alloy.createController('demos/4-UsingTiglManager').getView();
+	view.open();
+}
+
+function openMoreDemo()
+{
+	var dialog = Ti.UI.createAlertDialog({
+		cancel: 1,
+		buttonNames: ['Cancel'],
+		message: 'New demos and tutorials will be added shortly',
+		title: 'More to come'
+	  });	
+	  dialog.show();
+}
+
+function openBenchmark3600()
+{
+	var view = Alloy.createController('Benchmark3600').getView();
+	view.open();
+}
 
 
 

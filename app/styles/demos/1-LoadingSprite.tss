@@ -1,5 +1,11 @@
 
-"#win" : 
+"Window" : 
 {
     title: "  TIGL: Loading sprite"
+}
+
+
+'WebView' :
+{
+	url: "/html/1-LoadingSprite.html" 
 }

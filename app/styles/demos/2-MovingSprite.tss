@@ -1,5 +1,11 @@
 
-"#win" : 
+"Window" : 
 {
     title: "  TIGL: Moving sprite"
+}
+
+
+'WebView' :
+{
+	url: "/html/2-MovingSprite.html" 
 }

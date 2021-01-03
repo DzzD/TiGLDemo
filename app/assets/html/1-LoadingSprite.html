@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,initial-scale=1.0">
+	<style>
+	html,body
+	{
+		margin : 0;
+		padding : 0;
+		border: 0;
+		box-sizing: border-box;
+		height: 100%
+	}
+	
+	body
+	{
+		border-top: 0;
+		padding: 20px;
+		overflow: auto;
+		font-size:14;
+	}
+	
+	.fileName
+	{
+		color:#888888;
+		margin-bottom:15px;
+		font-size: 20px;
+	}
+	</style>
+	<body>
+<div class="fileName"># myView.xml</div>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:0;padding:.0;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;Alloy&gt;</span>
+  <span style="color: #007700">&lt;Window&gt;</span>
+    <span style="color: #007700">&lt;TIGLView</span> <span style="color: #0000CC">module=</span><span style="background-color: #fff0f0">&quot;fr.dzzd.tigl&quot;</span> <span style="color: #0000CC">onInit=</span><span style="background-color: #fff0f0">&quot;init&quot;</span> <span style="color: #0000CC">onResize=</span><span style="background-color: #fff0f0">&quot;resize&quot;</span> <span style="color: #007700">/&gt;</span>
+  <span style="color: #007700">&lt;/Window&gt;</span>
+<span style="color: #007700">&lt;/Alloy&gt;</span>
+</pre></td></tr></table></div>
+
+
+<br><br>
+<div class="fileName"># myView.js</div>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:0;padding:.0;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/*</span>
+<span style="color: #888888"> * Init must be declared as an attribute of the Alloy tag TIGLView (eg: onInit=&quot;init&quot;)</span>
+<span style="color: #888888"> */</span>
+<span style="color: #008800; font-weight: bold">var</span> spriteId;
+<span style="color: #008800; font-weight: bold">function</span> init()
+{
+	<span style="color: #888888">/*</span>
+<span style="color: #888888">	* For Alloy project, at runtime &quot;assets&quot; folder become &quot;Resources&quot; folder</span>
+<span style="color: #888888">	*/</span>
+	spriteId <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">this</span>.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/sprite.png&quot;</span>});
+}
+
+<span style="color: #008800; font-weight: bold">function</span> resize(e)
+{
+	<span style="color: #888888">/*</span>
+<span style="color: #888888">	 * Center sprite</span>
+<span style="color: #888888">	 */</span>
+	<span style="color: #008800; font-weight: bold">this</span>.setEntityPositionById(spriteId, e.width <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span> <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">100</span>, e.height <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span> <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">125</span>);
+}
+</pre></td></tr></table></div>
+
+
+
+	</body>
+</html>

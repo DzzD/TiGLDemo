@@ -1,25 +1,11 @@
-/*
-
-This is your global styles file. Selectors and rules you define
-here will be applied throughout your app. However, these rules
-have the lowest priority of any style settings.
-
-For more information, see the "Style Priorities" section of
-http://docs.appcelerator.com/platform/latest/#!/guide/Alloy_Styles_and_Themes
-
-For example, the following would apply to all labels, windows,
-and text fields (depending on platform) in your app unless you
-overrode the settings with other TSS, XML, or JS settings:
-
-*/
-'Label[platform=android,windows]': 
-{
-	color: '#fff' // all platforms except Android and Windows default to black
-}
-
 'Window': 
 {
-	backgroundColor: '#fff' // white background instead of default transparent or black
+	layout: "vertical",
+	backgroundColor: "#665a59",
+	fullscreen: true,
+	orientationModes: [Ti.UI.PORTRAIT],
+	backgroundImage: "/images/windowBackground.jpg",
+	backgroundSize: "cover"
 }
 
 'TextField[platform=android]': 
@@ -27,16 +13,27 @@ overrode the settings with other TSS, XML, or JS settings:
 	height: Ti.UI.SIZE
 }
 
-"#win": 
-{
-	layout: "vertical",
-	backgroundcolor: "white",
-	fullscreen: true,
-	orientationModes: [Ti.UI.PORTRAIT],
-}
 
-"#actionbar" : 
+"ActionBar" : 
 {	
     logo: "/images/logo.png",
 	displayHomeAsUp: false,
+}
+
+
+'TIGLView' :
+{
+	units: "dp",
+	width: Ti.UI.FILL,
+	height: "50%",
+	top: 0,
+	backgroundColor: "#7d7c7a",
+}
+
+
+'WebView' :
+{
+	width: Ti.UI.FILL,
+	height: "50%",
+	backgroundColor: "#ffffff",
 }

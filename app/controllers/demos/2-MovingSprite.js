@@ -5,13 +5,14 @@ var spriteUid;
 var posX;
 var direction;
 var width;
+var height;
 function init()
 {
 	/*
 	* For Alloy project, at runtime "assets" folder become "Resources" folder
 	*/
     spriteUid = this.addSprite({url: "Resources/sprite.png", x: 0, y: 50});
-    this.setEntityPivotById(spriteUid, 128, 0);
+    this.setEntityPivotById(spriteUid, 128, 160);
     posX = 128;
     direction=-1;
 }
@@ -23,6 +24,7 @@ function init()
 function resize(e)
 {
     width = e.width;
+    height = e.height;
 }
 
 /*
@@ -30,7 +32,7 @@ function resize(e)
  */ 
 function loop()
 {
-    this.setEntityPositionById(spriteUid, posX, 50);
+    this.setEntityPositionById(spriteUid, posX, height * 0.5);
     posX+=direction;
     if(posX<128)
     {
@@ -44,5 +46,3 @@ function loop()
     }
     
 }
-
-$.win.open();

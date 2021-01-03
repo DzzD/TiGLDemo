@@ -1,4 +1,10 @@
-"#win" : 
+
+"Window" : 
 {
-    title: "  TIGL: Using TIGLManager"
+    title: "  TIGL: Using TIGL Manager"
+}
+
+'WebView' :
+{
+	url: "/html/4-UsingTiglManager.html" 
 }
