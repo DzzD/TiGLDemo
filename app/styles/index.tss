@@ -1,3 +1,9 @@
+"#win" : 
+{
+    title: "  TIGL Demos And Tutorials"
+}
+
+
 ".menu": 
 {
 	layout: "vertical",

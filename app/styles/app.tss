@@ -31,11 +31,12 @@ overrode the settings with other TSS, XML, or JS settings:
 {
 	layout: "vertical",
 	backgroundcolor: "white",
-	fullscreen: true 
+	fullscreen: true,
+	orientationModes: [Ti.UI.PORTRAIT],
 }
 
 "#actionbar" : 
-{
-    logo: "/logo.png",
-	homeButtonEnabled: true,
+{	
+    logo: "/images/logo.png",
+	displayHomeAsUp: false,
 }

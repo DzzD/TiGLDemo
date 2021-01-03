@@ -34,7 +34,7 @@ function init(e)
 				entityId = this.addSprite({url : "Resources/robot3.png", width : 50, height: 50});
 			break;
 			case 3:
-				entityId = this.addSprite({url : "Resources/logo.png", width : 64, height: 64});
+				entityId = this.addSprite({url : "Resources/logo.png", width : 72, height: 72});
 			break;
 		}
 		this.entities[n] = new Object();
@@ -77,17 +77,19 @@ function loop(e)
 		this.entities[n].x = x;
 		this.entities[n].y = y;
 		/*
-		index[n] = n;
+		index[n] = this.entities[n].id;
 		xs[n] = x;
 		ys[n] = y;
 		*/
+		
 		let packedXY = ((parseInt(x + 32768)<<16)&0xFFFF0000) | (parseInt(y + 32768)&0xFFFF);
 		packedPos[n*2] = this.entities[n].id;
 		packedPos[n*2 + 1] = packedXY;
 		
+		
 	}
 	this.setEntityPosPacked(packedPos);
-	//this.setEntityPos(index, xs, ys, this.nb* this.nb -1);
+	//this.setEntityPos(index, xs, ys, this.entities.length);
 	fps.end();
 	
 }

@@ -2,7 +2,7 @@
 <ti:app 
   xmlns:ti="http://ti.appcelerator.org">
   <id>fr.dzzd.tigldemo</id>
-  <name>TIGL Demos And Tutorials</name>
+  <name>TIGL Demos</name>
   <version>1.0</version>
   <publisher>dzzd</publisher>
   <url/>

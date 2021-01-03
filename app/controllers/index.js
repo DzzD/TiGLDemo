@@ -6,7 +6,6 @@ function open1LoadingSprite()
 	view.open();
 }
 
-
 function open2MovingSprite()
 {
 	var view = Alloy.createController('demos/2-MovingSprite').getView();
@@ -16,6 +15,12 @@ function open2MovingSprite()
 function open3AnimatingSprite()
 {
 	var view = Alloy.createController('demos/3-AnimatingSprite').getView();
+	view.open();
+}
+
+function open4UsingTiglManager()
+{
+	var view = Alloy.createController('demos/4-UsingTiglManager').getView();
 	view.open();
 }
 
