@@ -94,7 +94,12 @@
 48
 49
 50
-51</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/*</span>
+51
+52
+53
+54
+55
+56</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/*</span>
 <span style="color: #888888"> * Import TIGL manager</span>
 <span style="color: #888888"> */</span>
 <span style="color: #008800; font-weight: bold">const</span> TIGLManager <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&quot;tiglmanager&quot;</span>);
@@ -116,8 +121,7 @@
 <span style="color: #888888">     * Create and initialise TIGL manager</span>
 <span style="color: #888888">     */</span>
     tm <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> TIGLManager(<span style="color: #008800; font-weight: bold">this</span>);
-    <span style="color: #008800; font-weight: bold">let</span> id <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/sprite.png&quot;</span>, x<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">50</span>, y<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">50</span>});
-    myEntity <span style="color: #333333">=</span> tm.getEntityById(id);
+    myEntity <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/sprite.png&quot;</span>});
 }
 
 
@@ -138,16 +142,20 @@
     <span style="color: #888888">/*</span>
 <span style="color: #888888">     * Modify an entity properties</span>
 <span style="color: #888888">     */</span>
-    myEntity.x <span style="color: #333333">=</span> <span style="color: #007020">Math</span>.cos(<span style="color: #007020">Date</span>.now() <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.001</span>) <span style="color: #333333">*</span> width <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span> <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">128</span> <span style="color: #333333">+</span> width <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span>;
-
+    myEntity.px <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">100</span>;
+    myEntity.py <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">125</span>;
+    myEntity.x <span style="color: #333333">=</span> <span style="color: #007020">Math</span>.cos(<span style="color: #007020">Date</span>.now() <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.001</span>) <span style="color: #333333">*</span> width <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.4</span> <span style="color: #333333">+</span> width <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span>;
+    myEntity.y <span style="color: #333333">=</span> height <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span>;
+    myEntity.sy <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #333333">+</span> <span style="color: #6600EE; font-weight: bold">0.25</span> <span style="color: #333333">*</span> <span style="color: #007020">Math</span>.cos(<span style="color: #007020">Date</span>.now() <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.003</span>);
+    myEntity.sx <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #333333">+</span> <span style="color: #6600EE; font-weight: bold">0.25</span> <span style="color: #333333">*</span> <span style="color: #007020">Math</span>.sin(<span style="color: #007020">Date</span>.now() <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.003</span>);
+    myEntity.r <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">45</span> <span style="color: #333333">*</span> <span style="color: #007020">Math</span>.cos(<span style="color: #007020">Date</span>.now() <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.0025</span>);
+    
     <span style="color: #888888">/*</span>
 <span style="color: #888888">     * Send data to Java TIGL module</span>
 <span style="color: #888888">     */</span>
     tm.terminate();
 }
 </pre></td></tr></table></div>
-
-
 
 
 
