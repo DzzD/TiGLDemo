@@ -7,14 +7,14 @@
 				<Button class="menuButton" onClick="open2MovingSprite">Moving sprite</Button>
 				<Button class="menuButton" onClick="open3AnimatingSprite">Animating sprite</Button>
 				<Button class="menuButton" onClick="open4UsingTiglManager">Using TIGL Manager</Button>
+				<Button class="menuButton" onClick="open5TiglManagerAndTween">TIGL manager and tween</Button>
 				<Button class="menuButton" onClick="openBenchmark3600">Benchmark 3600 sprites</Button>
-				<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
-				<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
-				<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
-				<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
-				<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
-				<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
-				<Button class="menuButton" onClick="openMoreDemo">More demos &amp; tutorials soon</Button>
+				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
+				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
+				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
+				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
+				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
+				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
 			</ScrollView>
 		</View>
 	</Window>

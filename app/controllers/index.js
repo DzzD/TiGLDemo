@@ -30,6 +30,12 @@ function open4UsingTiglManager()
 	view.open();
 }
 
+function open5TiglManagerAndTween()
+{
+	var view = Alloy.createController('demos/5-TiglManagerAndTween').getView();
+	view.open();
+}
+
 function openMoreDemo()
 {
 	var dialog = Ti.UI.createAlertDialog({

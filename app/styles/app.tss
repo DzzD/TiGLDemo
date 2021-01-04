@@ -1,6 +1,5 @@
 'Window': 
 {
-	layout: "vertical",
 	backgroundColor: "#665a59",
 	fullscreen: true,
 	orientationModes: [Ti.UI.PORTRAIT],
@@ -36,4 +35,6 @@
 	width: Ti.UI.FILL,
 	height: "50%",
 	backgroundColor: "#ffffff",
+	top: "50%",
+
 }

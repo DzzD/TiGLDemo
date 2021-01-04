@@ -1,0 +1,10 @@
+
+"Window" : 
+{
+    title: "  TIGL: TIGL Manager and Tween"
+}
+
+'WebView' :
+{
+	url: "/html/5-TiglManagerAndTween.html" 
+}

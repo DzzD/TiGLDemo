@@ -18,8 +18,9 @@
 
 class Entity
 {
-    constructor(options)
+    constructor(options, tiglManager)
     {
+        this.tiglManager = tiglManager;
         this.positionDirty = false;
         this.rotationDirty = false;
         this.scaleDirty = false;
@@ -110,13 +111,18 @@ class Entity
         return this._py;
     }
 
+    playAnimation(options)
+    {
+        this.tiglManager.tiglView.playEntityAnimationById(this.id, options);
+    }
+
 }
 
-class Sprite 
+class Sprite extends Entity
 {
-    constructor(options)
+    constructor(options, tiglManager)
     {
-        super(options);
+        super(options, tiglManager);
     }
 
 }
@@ -132,7 +138,7 @@ class TIGLManager
     addSprite(options)
     {
         let id = this.tiglView.addSprite(options);
-        let entity = new Sprite(options)
+        let entity = new Sprite(options, this)
         entity.id = id;
         this.entities.set(id, entity);
         return entity;
@@ -176,7 +182,7 @@ class TIGLManager
             if(entity.rotationDirty)
             {
                 entity.rotationDirty = false;
-                let packedR = ((entity.r % 360) * 0x1000000 / 180);
+                let packedR = ((entity.r % 360) * 0x1000000 / 360);
                 rotationsPackedR.push(id);
                 rotationsPackedR.push(packedR);
             }
