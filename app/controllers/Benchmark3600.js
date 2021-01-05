@@ -62,7 +62,6 @@ function loop(e)
 		entity.y = (n/this.nb) * spaceY + Math.sin(n + angle) * spaceY - 25;
 		n++;
 	}
-	tm.terminate();
 	fps.end();
 	
 }

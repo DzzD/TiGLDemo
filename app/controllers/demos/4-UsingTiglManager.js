@@ -42,7 +42,7 @@ function resize(e)
 function loop()
 {
     /*
-     * Modify an entity properties
+     * Modify some entities properties
      */
     myEntity1.px = 100;
     myEntity1.py = 125;
@@ -56,9 +56,4 @@ function loop()
     myEntity2.y = Math.cos(Date.now() * 0.001) * height * 0.2 + height * 0.5;
     myEntity2.px = 128;
     myEntity2.py = 128;
-    
-    /*
-     * Send data to Java TIGL module
-     */
-    tm.terminate();
 }

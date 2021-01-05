@@ -5,14 +5,14 @@
 version: 1.0.0
 apiversion: 4
 architectures: arm64-v8a armeabi-v7a x86 x86_64
-description: glsprite
+description: TIGL OpenGL module for Titanium
 author: DzzD & Bruno Augier (bruno.augier@dzzd.net)
 license: GPLv3
 copyright: Copyright (c) 2013 - 2021 by DzzD, Bruno Augier (bruno.augier@dzzd.net)
 
 # these should not be edited
-name: glsprite
-moduleid: fr.dzzd.glsprite
+name: tigl
+moduleid: fr.dzzd.tigl
 guid: 222a00af-7099-4a0b-b2e9-a2af4fffd0ba
 platform: android
 minsdk: 9.2.2.GA

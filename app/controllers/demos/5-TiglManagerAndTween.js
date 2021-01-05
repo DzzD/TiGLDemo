@@ -52,12 +52,7 @@ function resize(e)
  */ 
 function loop()
 {
-    
     TWEEN.update();
-    /*
-     * Send data to Java TIGL module
-     */
-    tm.terminate();
 }
 
 

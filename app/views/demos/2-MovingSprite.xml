@@ -1,7 +1,7 @@
 <Alloy>
 	<Window>
 		<ActionBar/>
-		<TIGLView module="fr.dzzd.glsprite" onInit="init" onResize="resize" onLoop="loop"/>
+		<TIGLView module="fr.dzzd.tigl" onInit="init" onResize="resize" onLoop="loop"/>
 		<WebView/>
 	</Window>
 </Alloy>

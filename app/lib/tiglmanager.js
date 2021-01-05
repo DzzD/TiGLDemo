@@ -32,6 +32,7 @@ class Entity
         this._sy = options.sy ? options.sy : 1;
         this._px = options.sx ? options.sx : 0;
         this._py = options.sy ? options.sy : 0;
+
     }
 
     set x(value)
@@ -133,6 +134,8 @@ class TIGLManager
     {
         this.tiglView = tiglView;
         this.entities = new Map();
+        var self = this;
+        this.tiglView.addEventListener("loopFinished", function(){self.onLoopFinished()});
     }
 
     addSprite(options)
@@ -154,7 +157,13 @@ class TIGLManager
         return this.entities.get(id);
     }
 
-    terminate()
+    onLoopFinished()
+    {
+        //Ti.API.info("onLoopFinished()");
+        this.updateSceneDatas();
+    }
+
+    updateSceneDatas()
     {
         let positionsPackedXY = Array();
         let rotationsPackedR = Array();
