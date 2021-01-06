@@ -7,7 +7,7 @@ const TIGLManager = require("tiglmanager");
 /*
  * Import Tween module
  */
-const TWEEN = require("tween.cjs");
+const Tween = require("tween.cjs");
 
 /*
  * Some globals vars
@@ -83,7 +83,7 @@ function resize(e)
  */ 
 function loop()
 {
-    TWEEN.update();   
+    Tween.update();   
 }
 
 
@@ -131,8 +131,8 @@ function scramble()
         var entity = entities[n];
         var x = 100 + Math.random() * (width - 200);
         var y = 100 + Math.random() * (height - 200);
-        var tween = new TWEEN.Tween(entity)
+        var tween = new Tween.Tween(entity)
                              .to({x: x, y: y}, 2000)
-                             .easing(TWEEN.Easing.Quadratic.Out).start();
+                             .easing(Tween.Easing.Quadratic.Out).start();
     }
 }

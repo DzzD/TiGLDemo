@@ -9,7 +9,7 @@ function init()
 	/*
 	* For Alloy project, at runtime "assets" folder become "Resources" folder
 	*/
-	spriteId = this.addSprite({url: "Resources/sprite.png", px: 100, py: 125, touchEnabled: true});
+	spriteId = this.addSprite({url: "Resources/dragme.png", px: 128, py: 170, touchEnabled: true});
 }
 /*
  * Resize must be declared as an attribute of the Alloy tag TIGLView (eg: onResize="resize")
