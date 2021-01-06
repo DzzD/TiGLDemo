@@ -17,5 +17,3 @@ function resize(e)
 	 */
 	this.setEntityPositionById(spriteId, e.width * 0.5 - 100, e.height * 0.5 - 125);
 }
-
-//$.win.open();

@@ -16,6 +16,8 @@
 *	 along with TIGL.  If not, see <https://www.gnu.org/licenses/>
 */
 
+const FPS = require("fps");
+var fps = new FPS("TIGLManager","Datas send");
 class Entity
 {
     constructor(options, tiglManager)
@@ -32,7 +34,39 @@ class Entity
         this._sy = options.sy ? options.sy : 1;
         this._px = options.sx ? options.sx : 0;
         this._py = options.sy ? options.sy : 0;
+        this._touchEnabled = options.touchEnabled ? options.touchEnabled : false;
+        this.onTouchListener = new Array();
 
+    }
+
+    addEventListener(event, callback)
+    {
+        if(event == "touch")
+        {
+            this.onTouchListener.push(callback);
+            this.touchEnabled = true;
+            
+        }
+    }
+
+    removeEventListener(event, callback)
+    {
+        if(event == "touch")
+        {
+            var index = this.onTouchListener.indexOf(callback);
+            if (index > -1) 
+            {
+                this.onTouchListener.splice(index, 1);
+            }
+        }
+    }
+
+    _onTouch(e)
+    {
+        for(var n = 0; n < this.onTouchListener.length; n++)
+        {
+            this.onTouchListener[n].call(this, e);
+        }
     }
 
     set x(value)
@@ -112,6 +146,18 @@ class Entity
         return this._py;
     }
 
+    
+    set touchEnabled(value)
+    {
+        if(this._touchEnabled != value) this.tiglManager.tiglView.setTouchEnabledById(this.id, value);
+        this._touchEnabled = value;
+    }
+
+    get touchEnabled()
+    {
+        return this._touchEnabled;
+    }
+
     playAnimation(options)
     {
         this.tiglManager.tiglView.playEntityAnimationById(this.id, options);
@@ -135,7 +181,8 @@ class TIGLManager
         this.tiglView = tiglView;
         this.entities = new Map();
         var self = this;
-        this.tiglView.addEventListener("loopFinished", function(){self.onLoopFinished()});
+        this.tiglView.addEventListener("loopFinished", function(){self._onLoopFinished()});
+        this.tiglView.addEventListener("touch", function(e){self._onTouch(e)});
     }
 
     addSprite(options)
@@ -157,13 +204,30 @@ class TIGLManager
         return this.entities.get(id);
     }
 
-    onLoopFinished()
+    _onLoopFinished()
     {
         //Ti.API.info("onLoopFinished()");
-        this.updateSceneDatas();
+        fps.start();
+        this._updateSceneDatas();
+        fps.end();
     }
 
-    updateSceneDatas()
+    
+    _onTouch(e)
+    {
+        // Ti.API.info("_onTouch() " + e.entityId);
+        var entityId = e.entityId;
+        if(entityId != 0)
+        {
+            var entity = this.getEntityById(entityId);
+            if(entity != null)
+            {
+                entity._onTouch(e);
+            }
+        }
+    }
+
+    _updateSceneDatas()
     {
         let positionsPackedXY = Array();
         let rotationsPackedR = Array();

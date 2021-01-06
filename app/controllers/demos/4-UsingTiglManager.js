@@ -42,7 +42,7 @@ function resize(e)
 function loop()
 {
     /*
-     * Modify some entities properties
+     * Modify an entity properties
      */
     myEntity1.px = 100;
     myEntity1.py = 125;

@@ -36,6 +36,19 @@ function open5TiglManagerAndTween()
 	view.open();
 }
 
+function open6TouchEventWithoutTiglManager()
+{
+	var view = Alloy.createController('demos/6-TouchEventWithoutTiglManager').getView();
+	view.open();
+}
+
+function open7TouchEventWithTiglManager()
+{
+	var view = Alloy.createController('demos/7-TouchEventWithTiglManager').getView();
+	view.open();
+}
+
+
 function openMoreDemo()
 {
 	var dialog = Ti.UI.createAlertDialog({

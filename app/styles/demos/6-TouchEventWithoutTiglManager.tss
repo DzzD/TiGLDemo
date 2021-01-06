@@ -1,0 +1,10 @@
+
+"Window" : 
+{
+    title: "  TIGL: Touch Event without TIGLManager"
+}
+
+'WebView' :
+{
+	url: "/html/6-TouchEventWithoutTiglManager.html" 
+}

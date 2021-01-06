@@ -1,0 +1,10 @@
+
+"Window" : 
+{
+    title: "  TIGL: Touch Events with TIGL Manager !"
+}
+
+'WebView' :
+{
+	url: "/html/7-TouchEventWithTiglManager.html" 
+}

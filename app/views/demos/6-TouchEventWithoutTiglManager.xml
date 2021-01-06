@@ -1,0 +1,7 @@
+<Alloy>
+	<Window>
+		<ActionBar/>
+		<TIGLView module="fr.dzzd.tigl" onInit="init" onResize="resize" onLoop="loop" onTouch="touch" />
+		<WebView/>
+	</Window>
+</Alloy>

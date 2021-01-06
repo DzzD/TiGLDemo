@@ -4,7 +4,7 @@
  */
 const TIGLManager = require("tiglmanager");
 const FPS = require("fps");
-var fps = new FPS();
+var fps = new FPS("JS", "Javascript loop");
 var tm;
 
 
@@ -16,21 +16,23 @@ function init(e)
 	tm.addSprite({url : "Resources/background.png", width : 500, height: 500, tile : true});
 	for(let n = 0; n < this.nb*this.nb; n++)
 	{
+		let entity;
 		switch(n%4)
 		{
 			case 0:
-				tm.addSprite({url : "Resources/robot.png", width : 50, height: 50});
+				entity = tm.addSprite({url : "Resources/robot.png", width : 50, height: 50});
 			break;
 			case 1:
-				tm.addSprite({url : "Resources/robot2.png", width : 50, height: 50});
+				entity = tm.addSprite({url : "Resources/robot2.png", width : 50, height: 50});
 			break;
 			case 2:
-				tm.addSprite({url : "Resources/robot3.png", width : 50, height: 50});
+				entity = tm.addSprite({url : "Resources/robot3.png", width : 50, height: 50});
 			break;
 			case 3:
-				tm.addSprite({url : "Resources/logo.png", width : 72, height: 72});
+				entity = tm.addSprite({url : "Resources/logo.png", width : 72, height: 72});
 			break;
 		}
+		entity.addEventListener('touch',function(e){Ti.API.info("Touch !");});
 	}
 	
 	this.resume();

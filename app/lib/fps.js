@@ -1,7 +1,9 @@
 class FPS
 {
-    constructor(frameReset)
+    constructor(tag, label, frameReset)
     {
+        this.tag = tag ? tag : "FPS";
+        this.label = label ? label : "Javascript";
         this.frameCount = 0;
         this.frameTime = 0;
         this.timeStart = 0;
@@ -24,7 +26,7 @@ class FPS
         this.frameTime += Date.now() - this.frameTimeStart;
         if( this.frameCount == this.frameReset)
         {
-            Ti.API.info(" FPS average time per frame: " + (this.frameTime / this.frameCount).toFixed(2) + " ms") ;
+            Ti.API.info(this.tag + ": " + this.label + " (time/frame): " + (this.frameTime / this.frameCount).toFixed(2) + " ms") ;
             this.frameCount = 0;
         }
     }
