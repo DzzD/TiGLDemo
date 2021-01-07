@@ -1,0 +1,10 @@
+
+"Window" : 
+{
+    title: "  TIGL: Flappy Bird !"
+}
+
+'WebView' :
+{
+	url: "/html/8-FlappyBird.html" 
+}

@@ -57,7 +57,6 @@ function onTouchEntity(e)
             /*
              * When touching down on a sprite set some properties for dragging it
              */
-            Ti.API.info("pointer" + e.pointer);
             if(entitiesDragged[e.pointer] == null)
             {
                 entitiesDragged[e.pointer] = this;

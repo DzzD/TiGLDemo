@@ -48,6 +48,12 @@ function open7TouchEventWithTiglManager()
 	view.open();
 }
 
+function open8FlappyBird()
+{
+	var view = Alloy.createController('demos/8-FlappyBird').getView();
+	view.open();
+}
+
 
 function openMoreDemo()
 {

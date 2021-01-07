@@ -10,6 +10,7 @@
 				<Button class="menuButton" onClick="open5TiglManagerAndTween">TIGL Manager and Tween</Button>
 				<Button class="menuButton" onClick="open6TouchEventWithoutTiglManager">Touch Events</Button>
 				<Button class="menuButton" onClick="open7TouchEventWithTiglManager">Touch Events with TIGL Manager</Button>
+				<Button class="menuButton" onClick="open8FlappyBird">Flappy Bird !</Button>
 				<Button class="menuButton" onClick="openBenchmark3600">Benchmark 3600 sprites</Button>
 				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
 			</ScrollView>
