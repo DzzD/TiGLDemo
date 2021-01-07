@@ -112,7 +112,6 @@ function touch(e)
        return;
    }
 
-   Ti.API.info("pointer" + e.pointer);
    let entityDragged = entitiesDragged[e.pointer];
    if(!entityDragged)
    {
