@@ -220,16 +220,16 @@ function createPipes()
    if((Date.now() - lastPipeCreateTime) > 2000)
    {
         var topPostion = Math.random() * (height - groundHeight) / 2 + (height - groundHeight) / 2;
-        var rand = Math.floor(Math.random() * 4);
+        var rand = Math.floor(Math.random() * 5);
         Ti.API.info("rand = " + rand);
-        if(rand & 1 == 1)
+        if(rand == 1 || rand == 2 || rand == 3)
         {
             Ti.API.info("pipe 1");
             var pipe = tm.addSprite({url: "Resources/flappyBird/pipe.png", width: 125, x: width, y: topPostion, px: 100});
             pipe.startTime = Date.now();
             pipesUp.push(pipe);
         }
-        if(rand & 2 == 2)
+        if(rand == 2 || rand == 3 || rand == 4)
         {
             Ti.API.info("pipe 2");
             var pipe = tm.addSprite({url: "Resources/flappyBird/pipe.png", width: 125, x: width, y: topPostion - 150, px: 100, sy: -1});
