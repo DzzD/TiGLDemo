@@ -13,26 +13,28 @@ function init(e)
 	tm = new TIGLManager(this);
 	this.nb = 60;
 	this.pause();
-	tm.addSprite({url : "Resources/background.png", width : 500, height: 500, tile : true});
+	let entity;
+	entity = tm.addSprite({url : "Resources/background.png", width : 500, height: 500, tile : true, layer: 5});
+	entity.addEventListener('touch',function(e){Ti.API.info("Touch !"), this.remove();});
 	for(let n = 0; n < this.nb*this.nb; n++)
 	{
-		let entity;
+		
 		switch(n%4)
 		{
 			case 0:
-				entity = tm.addSprite({url : "Resources/robot.png", width : 50, height: 50});
+				entity = tm.addSprite({url : "Resources/robot.png", width : 50, height: 50, layer: 0});
 			break;
 			case 1:
-				entity = tm.addSprite({url : "Resources/robot2.png", width : 50, height: 50});
+				entity = tm.addSprite({url : "Resources/robot2.png", width : 50, height: 50, layer: 0});
 			break;
 			case 2:
-				entity = tm.addSprite({url : "Resources/robot3.png", width : 50, height: 50});
+				entity = tm.addSprite({url : "Resources/robot3.png", width : 50, height: 50, layer: 0});
 			break;
 			case 3:
-				entity = tm.addSprite({url : "Resources/logo.png", width : 72, height: 72});
+				entity = tm.addSprite({url : "Resources/logo.png", width : 72, height: 72, layer: 0});
 			break;
 		}
-		entity.addEventListener('touch',function(e){Ti.API.info("Touch !");});
+		entity.addEventListener('touch',function(e){Ti.API.info("Touch !"), this.remove();});
 	}
 	
 	this.resume();
@@ -60,8 +62,8 @@ function loop(e)
 	var n = 0;
 	for (var [id, entity] of tm.getEntities())
 	{
-		entity.x = (n%this.nb) * spaceX + Math.cos(n + angle) * spaceX - 25;
-		entity.y = (n/this.nb) * spaceY + Math.sin(n + angle) * spaceY - 25;
+		entity.x = Math.floor(n%this.nb) * spaceX + Math.cos(n + angle) * spaceX - 25;
+		entity.y = Math.floor(n/this.nb) * spaceY + Math.sin(n + angle) * spaceY - 25;
 		n++;
 	}
 	fps.end();

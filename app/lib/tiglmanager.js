@@ -27,6 +27,7 @@ class Entity
         this.rotationDirty = false;
         this.scaleDirty = false;
         this.pivotDirty = false;
+        this._layer = options.layer ? options.layer : 1;
         this._x = options.x ? options.x : 0
         this._y = options.y ? options.y : 0;
         this._r = options.r ? options.r : 0;
@@ -37,6 +38,11 @@ class Entity
         this._touchEnabled = options.touchEnabled ? options.touchEnabled : false;
         this.onTouchListener = new Array();
 
+    }
+
+    remove()
+    {
+        this.tiglManager.removeEntityById(this.id);
     }
 
     addEventListener(event, callback)
@@ -67,6 +73,19 @@ class Entity
         {
             this.onTouchListener[n].call(this, e);
         }
+    }
+
+    set layer(value)
+    {
+        if(value < 0) value = 0;
+        if(value > 255) value = 255;
+        if(this._layer != value) this.tiglManager.tiglView.setEntityLayerById(this.id, value);
+        this._layer = value;
+    }
+
+    get layer()
+    {
+       return this._layer;
     }
 
     set x(value)
@@ -192,6 +211,12 @@ class TIGLManager
         entity.id = id;
         this.entities.set(id, entity);
         return entity;
+    }
+
+    removeEntityById(id)
+    {
+        this.entities.delete(id);
+        this.tiglView.removeEntityById(id);
     }
 
     getEntities()

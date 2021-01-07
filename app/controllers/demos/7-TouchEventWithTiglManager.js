@@ -1,4 +1,8 @@
 /*
+ * This demo use an external library for tweens : https://github.com/tweenjs/tween.js/
+ */
+
+/*
  * Import TIGL manager
  */
 const TIGLManager = require("tiglmanager");
@@ -16,7 +20,7 @@ var tm;
 var width;
 var height;
 
-var entityDragged = null;
+var entitiesDragged = new Array();
 var entities = new Array();
 
 /*
@@ -28,6 +32,10 @@ function init()
      * Create and initialise TIGL manager
      */
     tm = new TIGLManager(this);
+
+    /* 
+     * Load puzzle sprites
+     */
     for(var n = 0; n < 16; n++)
     {
         var entity = tm.addSprite({url: "Resources/puzzle/jigsaw" + n + ".png", px: 60, py: 60});
@@ -46,9 +54,13 @@ function onTouchEntity(e)
     switch(e.action)
     {
         case "down" :
-            if(entityDragged == null)
+            /*
+             * When touching down on a sprite set some properties for dragging it
+             */
+            Ti.API.info("pointer" + e.pointer);
+            if(entitiesDragged[e.pointer] == null)
             {
-                entityDragged = this;
+                entitiesDragged[e.pointer] = this;
                 this.startX = this.x;
                 this.startY = this.y;
                 this.sceneX = e.sceneX;
@@ -68,7 +80,7 @@ function resize(e)
     height = e.height;
 
     /*
-     * Dispose entities all over the screen
+     * Dispose puzzle pieces all over the screen
      */
     for(var n = 0; n < entities.length; n++)
     {
@@ -83,7 +95,7 @@ function resize(e)
  */ 
 function loop()
 {
-    Tween.update();   
+    Tween.update(); //Requiered for tween to work 
 }
 
 
@@ -100,22 +112,22 @@ function touch(e)
        return;
    }
 
-   
+   Ti.API.info("pointer" + e.pointer);
+   let entityDragged = entitiesDragged[e.pointer];
+   if(!entityDragged)
+   {
+       return;
+   }
    switch(e.action)
    {
+       
         case "move" :
-            if(entityDragged != null)
-            {
-                entityDragged.x = entityDragged.startX + e.sceneX - entityDragged.sceneX;
-                entityDragged.y = entityDragged.startY + e.sceneY - entityDragged.sceneY;
-            }
+            entityDragged.x = entityDragged.startX + e.sceneX - entityDragged.sceneX;
+            entityDragged.y = entityDragged.startY + e.sceneY - entityDragged.sceneY;
         break;
 
        case "up" :
-           if(entityDragged != null)
-           {
-               entityDragged = null;
-           }
+        entitiesDragged[e.pointer] = null;
        break;
    }
 

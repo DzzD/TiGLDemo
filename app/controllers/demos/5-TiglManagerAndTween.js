@@ -1,4 +1,8 @@
 /*
+ * This demo use an external library for tweens : https://github.com/tweenjs/tween.js/
+ */
+
+/*
  * Import TIGL manager
  */
 const TIGLManager = require("tiglmanager");
