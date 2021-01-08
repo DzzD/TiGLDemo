@@ -1,15 +1,11 @@
 /*
- * This demo use an external library for tweens : https://github.com/tweenjs/tween.js/
- */
-
-/*
  * Import TIGL manager
  */
 const TIGLManager = require("tiglmanager");
 
 
 /*
- * Import Tween module
+ * Import Tween module (https://github.com/tweenjs/tween.js/)
  */
 const Tween = require("tween.cjs");
 
@@ -94,7 +90,7 @@ function resize(e)
  */ 
 function loop()
 {
-    Tween.update(); //Requiered for tween to work 
+    Tween.update(); //Requiered for tween to be updated 
 }
 
 
@@ -132,7 +128,7 @@ function touch(e)
 }
 
 /*
- * Scramble all entities position
+ * Scramble all puzzle pieces
  */
 function scramble()
 {

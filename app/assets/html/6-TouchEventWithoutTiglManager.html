@@ -1,41 +1,197 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,initial-scale=1.0">
-	<style>
-	html,body
-	{
-		margin : 0;
-		padding : 0;
-		border: 0;
-		box-sizing: border-box;
-		height: 100%
-	}
-	
-	body
-	{
-		border-top: 0;
-		padding: 20px;
-		overflow: auto;
-		font-size:14;
-	}
-	
-	.fileName
-	{
-		color:#555555;
-		margin-bottom:15px;
-		font-size: 20px;
-	}
-	</style>
+	<link href="fonts/fonts.css" rel="stylesheet" type="text/css"/>
+	<link href="style.css" rel="stylesheet" type="text/css"/>
 	<body>
+		<h1>6 - Using touch events (without TIGL Manager)</h1> 
+		<li>Unless you are doing a demo without interaction,  at some point you will need user inputs. that's when come the TIGL view "touch" event, that you need to declare in your alloy tag (or add an event listener for classic apps)<br>
+		<li>Look at the code below to learn more.
+		<br><br>
 <div class="fileName"># myView.xml</div>
-
-
-
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:0;padding:.0;"><table><tr><td><pre style="margin: 0; line-height: 125%">1
+2
+3
+4
+5
+6
+7</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;Alloy&gt;</span>
+  <span style="color: #007700">&lt;Window&gt;</span>
+    <span style="color: #007700">&lt;ActionBar/&gt;</span>
+    <span style="color: #007700">&lt;TIGLView</span> <span style="color: #0000CC">module=</span><span style="background-color: #fff0f0">&quot;fr.dzzd.tigl&quot;</span> <span style="color: #0000CC">onInit=</span><span style="background-color: #fff0f0">&quot;init&quot;</span> <span style="color: #0000CC">onResize=</span><span style="background-color: #fff0f0">&quot;resize&quot;</span> <span style="color: #0000CC">onLoop=</span><span style="background-color: #fff0f0">&quot;loop&quot;</span> <span style="color: #0000CC">onTouch=</span><span style="background-color: #fff0f0">&quot;touch&quot;</span> <span style="color: #007700">/&gt;</span>
+    <span style="color: #007700">&lt;WebView/&gt;</span>
+  <span style="color: #007700">&lt;/Window&gt;</span>
+<span style="color: #007700">&lt;/Alloy&gt;</span>
+</pre></td></tr></table></div>
 
 
 
 <br><br>
 <div class="fileName"># myView.js</div>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:0;padding:.0;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/*</span>
+<span style="color: #888888"> * Init must be declared as an attribute of the Alloy tag TIGLView (eg: onInit=&quot;init&quot;)</span>
+<span style="color: #888888"> */</span>
+<span style="color: #008800; font-weight: bold">var</span> spriteId;
+<span style="color: #008800; font-weight: bold">var</span> spriteX;
+<span style="color: #008800; font-weight: bold">var</span> spriteY;
+<span style="color: #008800; font-weight: bold">function</span> init()
+{
+	<span style="color: #888888">/*</span>
+<span style="color: #888888">	* For Alloy project, at runtime &quot;assets&quot; folder become &quot;Resources&quot; folder</span>
+<span style="color: #888888">	*/</span>
+	spriteId <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">this</span>.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/dragme.png&quot;</span>, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">128</span>, py<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">170</span>, touchEnabled<span style="color: #333333">:</span> <span style="color: #008800; font-weight: bold">true</span>});
+}
+<span style="color: #888888">/*</span>
+<span style="color: #888888"> * Resize must be declared as an attribute of the Alloy tag TIGLView (eg: onResize=&quot;resize&quot;)</span>
+<span style="color: #888888"> */</span>
+<span style="color: #008800; font-weight: bold">function</span> resize(e)
+{
+	<span style="color: #888888">/*</span>
+<span style="color: #888888">	 * Set sprite positions to center</span>
+<span style="color: #888888">	 */</span>
+    spriteX <span style="color: #333333">=</span> e.width <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span>;
+    spriteY <span style="color: #333333">=</span> e.height <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span>;
+}
+
+<span style="color: #888888">/*</span>
+<span style="color: #888888"> * Loop must be declared as an attribute of the Alloy tag TIGLView (eg: onLoop=&quot;loop&quot;)</span>
+<span style="color: #888888"> */</span>
+<span style="color: #008800; font-weight: bold">function</span> loop()
+{
+	<span style="color: #008800; font-weight: bold">this</span>.setEntityPositionById(spriteId, spriteX, spriteY);
+}
+
+<span style="color: #888888">/*</span>
+<span style="color: #888888"> * Initialise some value for dragging</span>
+<span style="color: #888888"> */</span>
+<span style="color: #008800; font-weight: bold">var</span> dragging <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">false</span>;
+<span style="color: #008800; font-weight: bold">var</span> dragStartX;
+<span style="color: #008800; font-weight: bold">var</span> dragStartY;
+<span style="color: #008800; font-weight: bold">var</span> dragStartPosX;
+<span style="color: #008800; font-weight: bold">var</span> dragStartPosY;
+
+
+<span style="color: #888888">/*</span>
+<span style="color: #888888"> * Touch must be declared as an attribute of the Alloy tag TIGLView (eg: onTouch=&quot;touch&quot;)</span>
+<span style="color: #888888"> */</span>
+<span style="color: #008800; font-weight: bold">function</span> touch(e)
+{
+	<span style="color: #008800; font-weight: bold">var</span> action <span style="color: #333333">=</span> e.action;
+	<span style="color: #008800; font-weight: bold">var</span> pointer <span style="color: #333333">=</span> e.pointer;
+	<span style="color: #008800; font-weight: bold">var</span> entityId <span style="color: #333333">=</span> e.entityId;
+	<span style="color: #008800; font-weight: bold">var</span> x <span style="color: #333333">=</span> e.x;
+	<span style="color: #008800; font-weight: bold">var</span> y <span style="color: #333333">=</span> e.y;
+	<span style="color: #008800; font-weight: bold">var</span> sceneX <span style="color: #333333">=</span> e.sceneX;
+    <span style="color: #008800; font-weight: bold">var</span> sceneY <span style="color: #333333">=</span> e.sceneY;
+    
+	<span style="color: #008800; font-weight: bold">switch</span>(action)
+	{
+		<span style="color: #008800; font-weight: bold">case</span> <span style="background-color: #fff0f0">&quot;down&quot;</span> <span style="color: #333333">:</span>
+            <span style="color: #008800; font-weight: bold">if</span>(entityId <span style="color: #333333">==</span> spriteId)
+            {
+                dragging <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">true</span>;
+                dragStartX <span style="color: #333333">=</span> sceneX;
+                dragStartY <span style="color: #333333">=</span> sceneY;
+                dragStartPosX <span style="color: #333333">=</span> spriteX;
+                dragStartPosY <span style="color: #333333">=</span> spriteY;
+            }
+		<span style="color: #008800; font-weight: bold">break</span>;
+
+		<span style="color: #008800; font-weight: bold">case</span> <span style="background-color: #fff0f0">&quot;move&quot;</span><span style="color: #333333">:</span>
+            <span style="color: #008800; font-weight: bold">if</span>(dragging)
+            {
+                spriteX <span style="color: #333333">=</span> dragStartPosX <span style="color: #333333">+</span> sceneX <span style="color: #333333">-</span> dragStartX;
+                spriteY <span style="color: #333333">=</span> dragStartPosY <span style="color: #333333">+</span> sceneY <span style="color: #333333">-</span> dragStartY;
+            }
+        <span style="color: #008800; font-weight: bold">break</span>;
+        
+		<span style="color: #008800; font-weight: bold">case</span> <span style="background-color: #fff0f0">&quot;up&quot;</span><span style="color: #333333">:</span>
+            dragging <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">false</span>;
+		<span style="color: #008800; font-weight: bold">break</span>;
+	}
+}
+</pre></td></tr></table></div>
 
 
 

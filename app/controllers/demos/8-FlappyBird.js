@@ -174,7 +174,7 @@ function loop()
          * Actions, if current game stage is "starting"
          */
         case "starting" :
-            moveWorld();
+            updateWorld();
             bird.y = (height - groundHeight) * 0.5;
             bird.vy = 0;
             bird.r = 0;

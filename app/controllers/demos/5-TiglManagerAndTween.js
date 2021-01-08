@@ -1,14 +1,10 @@
 /*
- * This demo use an external library for tweens : https://github.com/tweenjs/tween.js/
- */
-
-/*
  * Import TIGL manager
  */
 const TIGLManager = require("tiglmanager");
 
 /*
- * Import Tween module
+ * Import Tween module (https://github.com/tweenjs/tween.js/)
  */
 const TWEEN = require("tween.cjs");
 
