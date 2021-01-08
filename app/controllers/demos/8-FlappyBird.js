@@ -1,8 +1,4 @@
 /*
- * This demo use an external library for tweens : https://github.com/tweenjs/tween.js/
- */
-
-/*
  * Import TIGL manager
  */
 const TIGLManager = require("tiglmanager");
@@ -16,25 +12,24 @@ const Tween = require("tween.cjs");
 /*
  * Some globals vars
  */
-var tm;
-var gameStage;
-var gameStageStartTime = 0;
-var gameSpeed = 0.2; //  units/ms => 200 units/second
-var frameTime = 0;
-var lastFrameTime = 0;
-var fingerPressed = false;
-var width = 0;
-var height = 0;
-var ground;
-var ready;
-var gameover;
-var bird;
-var gravity = 1750; //gravity in unit/s²
-var groundHeight = 128;
+var tm;                         //TIGL Manager
+var gameStage;                  //Current game stage
+var gameStageStartTime = 0;     //Current game stage start time
+var worldSpeed = 0.2;           //World speed units/ms => 200 units/second
+var frameTime = 0;              //Current frame time (ms)
+var lastFrameTime = 0;          //Last frame time (ms)
+var width = 0;                  //View width
+var height = 0;                 //View height
+var ground;                     //Ground sprite
+var ready;                      //Ready! sprite
+var gameover;                   //Gameover sprite
+var bird;                       //Bird sprite
+var gravity = 1750;             //Gravity
+var groundHeight = 128;         //Ground height
 
-var pipesUp = new Array();
-var pipesDown = new Array();
-var lastPipeCreateTime = 0;
+var pipesUp = new Array();      //Pipes pointing up sprites
+var pipesDown = new Array();    //Pipes pointing down sprites
+var lastPipeCreateTime = 0;     //Last time game try of creating pipes
 
 
 /*
@@ -62,14 +57,11 @@ function init()
      */
     bird = tm.addSprite({url: "Resources/flappyBird/bird.png", width: 100, height: 102, px: 55, py: 55, x: 100, y: 100, layer: 1});
     
-
-    
     /*
      * Load gameover
      */
     gameover = tm.addSprite({url: "Resources/flappyBird/gameover.png", width: 518, height: 164, px: 259, py: 82, y: -500,layer: 10});
 
-    
     /*
      * Load ready
      */
@@ -82,6 +74,10 @@ function init()
 
 }
 
+/* 
+ * If view has been resized, start the game
+ *  if not wait 100ms and retry
+ */
 function waitToStart()
 {
     if(width != 0 && height != 0)
@@ -99,14 +95,20 @@ function resize(e)
 {
     width = e.width;
     height = e.height;
-    
     ground.y = height - groundHeight;
 }
 
+/*
+ * Change game stage
+ * Here set actions required when game stage is changing 
+ */
 function setGameStage(newGameStage)
 {
     switch(newGameStage)
     {
+        /* 
+         * Action if current game stage become "starting"
+         */
         case "starting":
             if(gameStage == "gameover")
             {
@@ -133,13 +135,11 @@ function setGameStage(newGameStage)
             .easing(Tween.Easing.Elastic.In).delay(1500).start();
 
             bird.playAnimation({loop: 0, pingpong: true, duration: 600});
-
         break;
 
-        case "running":
-            
-        break;
-
+        /* 
+         * Action if current game stage become "gameover"
+         */
         case "gameover":
             bird.playAnimation({loop: 1, duration: 0});
             new Tween.Tween(bird)
@@ -161,70 +161,110 @@ function setGameStage(newGameStage)
 
 /*
  * Loop must be declared as an attribute of the Alloy tag TIGLView (eg: onLoop="loop")
+ * This is called for each frame
+ * Here set actions depending on current game stage
  */ 
 function loop()
 {
     frameTime = Date.now();
     switch(gameStage)
     {
+        
+        /*
+         * Actions, if current game stage is "starting"
+         */
         case "starting" :
             moveWorld();
             bird.y = (height - groundHeight) * 0.5;
             bird.vy = 0;
             bird.r = 0;
-            bird.acceleration = 0;
             if(gameStageDuration() > 3000)
             {
                 setGameStage("running");
             }
         break;
 
+        /*
+         * Actions, if current game stage is "running"
+         */
         case "running" :
-            moveWorld();
-            moveBird();
+            updateWorld();
+            updateBird();
+            updatePipes();
             performCollisions();
-            createPipes();
         break;
 
     }
     lastFrameTime = frameTime;
-    Tween.update(); //Requiered for tween to work 
+    Tween.update(); //Requiered for tweens to be updated 
 }
 
-function moveBird()
-{
-    //bird.acceleration = fingerPressed ? -2.0 * gravity : gravity;
-    bird.acceleration = gravity;
-    bird.vy += bird.acceleration * frameDuration();
-    bird.vy *= 0.99;
-    bird.r = 45 * bird.vy / 1000;
-    bird.y += bird.vy * frameDuration();
+/*
+ * Bird updating  when the game is running
+ */
+function updateBird()
+{                     
+    bird.vy += gravity * frameDuration();  //Move bird up or down depending on vertical speed
+    bird.vy *= 0.99;                       //Some friction
+    bird.r = 45 * bird.vy / 1000;          //Rotate bird dependingon vertical speed
+    bird.y += bird.vy * frameDuration();   //Move bird up or down
 }
 
-function moveWorld()
+/*
+ * World updating  when the game is running
+ */
+function updateWorld()
 {
-    ground.x = - (Date.now() * gameSpeed) % 256;
+    /* 
+     * Move ground
+     */
+    ground.x = - (Date.now() * worldSpeed) % 256;
     ground.y = height - groundHeight;
+    
+    /*
+     * Move pipes upward
+     */
     for(var n = 0; n < pipesUp.length; n++)
     {
         var pipe = pipesUp[n];
-        pipe.x = width - (Date.now()- pipe.startTime) * gameSpeed;
+        pipe.x = width - (Date.now()- pipe.startTime) * worldSpeed;
     }
     
+    /*
+     * Move pipes downard
+     */
     for(var n = 0; n < pipesDown.length; n++)
     {
         var pipe = pipesDown[n];
-        pipe.x = width - (Date.now()- pipe.startTime) * gameSpeed;
+        pipe.x = width - (Date.now()- pipe.startTime) * worldSpeed;
     }
 }
 
-function createPipes()
+/*
+ * Pipes updating  when the game is running
+ */
+function updatePipes()
 {
+    /*
+     * If last update was less than 2s ago, do nothing
+     */
    if((Date.now() - lastPipeCreateTime) > 2000)
    {
+       /*
+        * Compute random height for tube
+        * @todo: use a pseudo random number generator to always get same level
+        */
         var topPostion = Math.random() * (height - groundHeight) / 2 + (height - groundHeight) / 2;
+        
+        /* 
+         * Get a random value that determine if we create a pipe upward, downward or both
+         * @todo: use a pseudo random number generator to always get same level
+         */
         var rand = Math.floor(Math.random() * 5);
-        Ti.API.info("rand = " + rand);
+
+        /*
+         * Create a pipe upward randomly
+         */
         if(rand == 1 || rand == 2 || rand == 3)
         {
             Ti.API.info("pipe 1");
@@ -232,6 +272,10 @@ function createPipes()
             pipe.startTime = Date.now();
             pipesUp.push(pipe);
         }
+        
+        /*
+         * Create a pipe downard randomly
+         */
         if(rand == 2 || rand == 3 || rand == 4)
         {
             Ti.API.info("pipe 2");
@@ -244,13 +288,22 @@ function createPipes()
 
 }
 
+/*
+ * Test for bird collisions on ground or pipes
+ */
 function performCollisions()
 {
+    /*
+     * Collision on ground ?
+     */
     if(bird.y > ground.y - 20)
     {
         setGameStage("gameover");
     }
 
+    /*
+     * Collision on pipes upward ?
+     */
     for(var n = 0; n < pipesUp.length; n++)
     {
         var pipe = pipesUp[n];
@@ -260,7 +313,9 @@ function performCollisions()
         }
     }
 
-    
+    /*
+     * Collision on pipes downward ?
+     */
     for(var n = 0; n < pipesDown.length; n++)
     {
         var pipe = pipesDown[n];
@@ -270,14 +325,11 @@ function performCollisions()
         }
 
     }
-    
-    for(var n = 0; n < pipesDown.length; n++)
-    {
-        var pipe = pipesDown[n];
-        
-    }
 }
 
+/*
+ * Return the current frame duration in second
+ */
 function frameDuration()
 {
     if(lastFrameTime == 0)
@@ -287,6 +339,9 @@ function frameDuration()
     return (frameTime - lastFrameTime) * 0.001;
 }
 
+/*
+ * Return the current game stage duration in ms
+ */
 function gameStageDuration()
 {
     return Date.now() - gameStageStartTime;
@@ -295,18 +350,20 @@ function gameStageDuration()
 
 /*
  * Touch must be declared as an attribute of the Alloy tag TIGLView (eg: onTouch="touch")
+ * Manage touch events
  */ 
 function touch(e)
 {
    switch(e.action)
    {
        case "down" :
-           fingerPressed = true;
-           bird.vy = -400;
+            if(gameStage == "running")
+            {
+                bird.vy = -400;
+            }
         break;
 
         case "up" :
-            fingerPressed = false;
             if(gameStage == "gameover" && gameStageDuration() > 2000)
             {
                 setGameStage("starting");
