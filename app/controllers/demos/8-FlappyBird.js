@@ -19,7 +19,7 @@ const Tween = require("tween.cjs");
 var tm;
 var gameStage;
 var gameStageStartTime = 0;
-var gameSpeed = 0.15; // 0.1 units/ms => 100 units/second
+var gameSpeed = 0.2; //  units/ms => 200 units/second
 var frameTime = 0;
 var lastFrameTime = 0;
 var fingerPressed = false;
@@ -29,7 +29,7 @@ var ground;
 var ready;
 var gameover;
 var bird;
-var gravity = 500; //gravity in unit/s²
+var gravity = 1750; //gravity in unit/s²
 var groundHeight = 128;
 
 var pipesUp = new Array();
@@ -171,6 +171,7 @@ function loop()
             moveWorld();
             bird.y = (height - groundHeight) * 0.5;
             bird.vy = 0;
+            bird.r = 0;
             bird.acceleration = 0;
             if(gameStageDuration() > 3000)
             {
@@ -192,9 +193,11 @@ function loop()
 
 function moveBird()
 {
-    bird.acceleration = fingerPressed ? -2.0 * gravity : gravity;
+    //bird.acceleration = fingerPressed ? -2.0 * gravity : gravity;
+    bird.acceleration = gravity;
     bird.vy += bird.acceleration * frameDuration();
     bird.vy *= 0.99;
+    bird.r = 45 * bird.vy / 1000;
     bird.y += bird.vy * frameDuration();
 }
 
@@ -243,7 +246,7 @@ function createPipes()
 
 function performCollisions()
 {
-    if(bird.y > ground.y - 25)
+    if(bird.y > ground.y - 20)
     {
         setGameStage("gameover");
     }
@@ -251,7 +254,7 @@ function performCollisions()
     for(var n = 0; n < pipesUp.length; n++)
     {
         var pipe = pipesUp[n];
-        if(bird.x > pipe.x - 25 && bird.x<pipe.x + 150 && bird.y > pipe.y - 25)
+        if(bird.x > pipe.x - 20 && bird.x<pipe.x + 145 && bird.y > pipe.y - 20)
         {
             setGameStage("gameover");
         }
@@ -261,7 +264,7 @@ function performCollisions()
     for(var n = 0; n < pipesDown.length; n++)
     {
         var pipe = pipesDown[n];
-        if(bird.x > pipe.x - 25 && bird.x<pipe.x + 150 && bird.y < pipe.y + 25)
+        if(bird.x > pipe.x - 20 && bird.x<pipe.x + 145 && bird.y < pipe.y + 20)
         {
             setGameStage("gameover");
         }
@@ -299,6 +302,7 @@ function touch(e)
    {
        case "down" :
            fingerPressed = true;
+           bird.vy = -400;
         break;
 
         case "up" :
