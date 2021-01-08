@@ -14,7 +14,7 @@ function init(e)
 	this.nb = 60;
 	this.pause();
 	let entity;
-	entity = tm.addSprite({url : "Resources/background.png", width : 500, height: 500, tile : true, layer: 5});
+	entity = tm.addSprite({url : "Resources/background.png", width : 500, height: 500, tile : true, layer: 0});
 	entity.addEventListener('touch',function(e){Ti.API.info("Touch !"), this.remove();});
 	for(let n = 0; n < this.nb*this.nb; n++)
 	{
@@ -22,16 +22,16 @@ function init(e)
 		switch(n%4)
 		{
 			case 0:
-				entity = tm.addSprite({url : "Resources/robot.png", width : 50, height: 50, layer: 0});
+				entity = tm.addSprite({url : "Resources/robot.png", width : 50, height: 50, layer: 1});
 			break;
 			case 1:
-				entity = tm.addSprite({url : "Resources/robot2.png", width : 50, height: 50, layer: 0});
+				entity = tm.addSprite({url : "Resources/robot2.png", width : 50, height: 50, layer: 2});
 			break;
 			case 2:
-				entity = tm.addSprite({url : "Resources/robot3.png", width : 50, height: 50, layer: 0});
+				entity = tm.addSprite({url : "Resources/robot3.png", width : 50, height: 50, layer: 3});
 			break;
 			case 3:
-				entity = tm.addSprite({url : "Resources/logo.png", width : 72, height: 72, layer: 0});
+				entity = tm.addSprite({url : "Resources/logo.png", width : 72, height: 72, layer: 1});
 			break;
 		}
 		entity.addEventListener('touch',function(e){Ti.API.info("Touch !"), this.remove();});
