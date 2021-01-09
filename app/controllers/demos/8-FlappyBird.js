@@ -25,7 +25,7 @@ var ready;                      //Ready! sprite
 var gameover;                   //Gameover sprite
 var bird;                       //Bird sprite
 var gravity = 1750;             //Gravity
-var groundHeight = 128;         //Ground height
+var groundHeight = Alloy.isTablet ? 128 : 64;         //Ground height
 
 var pipesUp = new Array();      //Pipes pointing up sprites
 var pipesDown = new Array();    //Pipes pointing down sprites
@@ -41,6 +41,13 @@ function init()
      * Create and initialise TIGL manager
      */
     tm = new TIGLManager(this);
+
+    /*
+     * If not Tablet use px units ( this should at least give more space for phone except for low density device... )
+     * @todo: waitingfor a fix of TIGL module eaither by adding setScale for the scene orSetSpecialUnits (doubled, ratio, etc...)
+     * SetUnit did not work here, no resize is fired with new unit
+     */
+    //if(!Alloy.isTablet) this.setUnits("px");
 
     /*
      * Load Sky
@@ -248,7 +255,7 @@ function updatePipes()
     /*
      * If last update was less than 2s ago, do nothing
      */
-   if((Date.now() - lastPipeCreateTime) > 2000)
+   if((Date.now() - lastPipeCreateTime) > 1500)
    {
        /*
         * Compute random height for tube
@@ -260,12 +267,12 @@ function updatePipes()
          * Get a random value that determine if we create a pipe upward, downward or both
          * @todo: use a pseudo random number generator to always get same level
          */
-        var rand = Math.floor(Math.random() * 5);
+        var rand = Math.floor(Math.random() * 6);
 
         /*
          * Create a pipe upward randomly
          */
-        if(rand == 1 || rand == 2 || rand == 3)
+        if(rand == 1 || rand == 2 || rand == 3 || rand == 4)
         {
             Ti.API.info("pipe 1");
             var pipe = tm.addSprite({url: "Resources/flappyBird/pipe.png", width: 125, x: width, y: topPostion, px: 100});
@@ -276,7 +283,7 @@ function updatePipes()
         /*
          * Create a pipe downard randomly
          */
-        if(rand == 2 || rand == 3 || rand == 4)
+        if(rand == 2 || rand == 3 || rand == 4 || rand == 5)
         {
             Ti.API.info("pipe 2");
             var pipe = tm.addSprite({url: "Resources/flappyBird/pipe.png", width: 125, x: width, y: topPostion - 150, px: 100, sy: -1});

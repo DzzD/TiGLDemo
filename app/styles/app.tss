@@ -29,6 +29,10 @@
 	backgroundColor: "#7d7c7a",
 }
 
+'TIGLView[formFactor=handheld]': 
+{
+    units: "px",
+}
 
 'WebView' :
 {
