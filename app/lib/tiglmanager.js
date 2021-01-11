@@ -16,8 +16,7 @@
 *	 along with TIGL.  If not, see <https://www.gnu.org/licenses/>
 */
 
-const FPS = require("fps");
-var fps = new FPS("TIGLManager","Datas send");
+
 class Entity
 {
     constructor(options, tiglManager)
@@ -202,6 +201,7 @@ class TIGLManager
         var self = this;
         this.tiglView.addEventListener("loopFinished", function(){self._onLoopFinished()});
         this.tiglView.addEventListener("touch", function(e){self._onTouch(e)});
+        this.timeDataSending = 0;
     }
 
     addSprite(options)
@@ -232,9 +232,11 @@ class TIGLManager
     _onLoopFinished()
     {
         //Ti.API.info("onLoopFinished()");
-        fps.start();
+        
+        var time = Date.now();
         this._updateSceneDatas();
-        fps.end();
+        this.timeDataSend = Date.now() - time;
+        
     }
 
     

@@ -3,13 +3,38 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0,initial-scale=1.0">
 	<link href="fonts/fonts.css" rel="stylesheet" type="text/css"/>
 	<link href="style.css" rel="stylesheet" type="text/css"/>
+	<script>
+      Ti.App.addEventListener("app:webview", function(e) 
+	  {
+        var statistics = document.getElementById("statistics");
+		var openglUs = e.java.opengl;
+		var matrixUs = e.java.matrix;
+		var javascriptUs = e.java.javascript;
+		var idleUs = e.java.idle;
+		var fpsUs = e.java.fps;
+		var javascriptLoopMs = e.javascript.loopTime;
+		var javascriptDataSendMs = e.javascript.dataSend;
+		var html = "<div style='font-weight:bold'>Java renderer :</div>";
+		html+="<div>     OpenGL : " + (openglUs / 1000.0).toFixed(2) + " ms</div>";
+		html+="<div>     Matrix : " + (matrixUs / 1000.0).toFixed(2) + " ms</div>";
+		html+="<div> Javascript : " + (javascriptUs / 1000.0).toFixed(2) + " ms <i><small>(datas reading)</small></i></div>";
+		html+="<div>  Idle time : " + (idleUs / 1000.0).toFixed(2) + " ms</div>";
+		html+="<div>  Framerate : " + (1000000 / fpsUs).toFixed(2) + " FPS</div>";
+		html += "<div style='font-weight:bold;margin-top:20px;'>Javascript loop :</div>";
+		html+="<div> Loop time : " + (javascriptLoopMs).toFixed(2) + " ms</div>";
+		html+="<div> Data send : " + (javascriptDataSendMs).toFixed(2) + " ms</div>";
+		statistics.innerHTML = html;
+      });
+	</script>
 	<body>
 		<h1>
 		Benchmark 3600
 		</h1>
-		<li>Benchmark 3600 is a simple benchmark for TIGL, you may get interesting informations in application logs that you can compare with other devices.
+		<li>This benchmark display 3600 sprites which are moved by Javascript code. Each of these 3600 sprites have it own touch event listener attached to him. You can remove sprites by touching them..
 		<br>
-		<li>This benchmark consist of displaying 3600 sprites and moving them with Javascript code.
+		<div id="statistics" style="margin-top:20px">
+		Benchmark results will be displayed in a few moment...
+		</div>
 		
 	</body>
 </html>
