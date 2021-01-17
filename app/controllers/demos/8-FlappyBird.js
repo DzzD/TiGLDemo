@@ -3,6 +3,11 @@
  */
 const TIGLManager = require("tiglmanager");
 
+/*
+ * Import Pseudo Random generator
+ */
+const Random = require("random");
+
 
 /*
  * Import Tween module (https://github.com/tweenjs/tween.js/)
@@ -29,8 +34,11 @@ var groundHeight = Alloy.isTablet ? 128 : 64;         //Ground height
 
 var pipesUp = new Array();      //Pipes pointing up sprites
 var pipesDown = new Array();    //Pipes pointing down sprites
+var miscs = new Array();
 var lastPipeCreateTime = 0;     //Last time game try of creating pipes
 
+
+var random = new Random(0);
 
 /*
  * Init must be declared as an attribute of the Alloy tag TIGLView (eg: onInit="init")
@@ -43,26 +51,20 @@ function init()
     tm = new TIGLManager(this);
 
     /*
-     * If not Tablet use px units ( this should at least give more space for phone except for low density device... )
-     * @todo: waitingfor a fix of TIGL module eaither by adding setScale for the scene orSetSpecialUnits (doubled, ratio, etc...)
-     * SetUnit did not work here, no resize is fired with new unit
-     */
-    //if(!Alloy.isTablet) this.setUnits("px");
-
-    /*
      * Load Sky
      */
-    tm.addSprite({url: "Resources/flappyBird/sky.jpg", width: 2000, height: 2000, tile: true, layer: 0});
+    tm.addSprite({url: "Resources/flappyBird/sky.png", width: 2000, height: 2000, tile: true, layer: 0});
    
     /*
      * Load Ground
      */
+    // ground = tm.addSprite({url: "Resources/flappyBird/ground.png", width: 256*50, height: 256, tile: true, layer: 5});
     ground = tm.addSprite({url: "Resources/flappyBird/ground.png", width: 256*50, height: 256, tile: true, layer: 5});
     
     /*
      * Load Bird animation
      */
-    bird = tm.addSprite({url: "Resources/flappyBird/bird.png", width: 100, height: 102, px: 55, py: 55, x: 100, y: 100, layer: 1});
+    bird = tm.addSprite({url: "Resources/flappyBird/bird.png", width: 128, height: 128, px: 66, py: 70, x: 100, y: 100, layer: 1});
     
     /*
      * Load gameover
@@ -100,8 +102,8 @@ function waitToStart()
  */ 
 function resize(e)
 {
-    width = e.width;
-    height = e.height;
+    width = parseInt(e.width);
+    height = parseInt(e.height);
     ground.y = height - groundHeight;
 }
 
@@ -133,6 +135,13 @@ function setGameStage(newGameStage)
                     pipesDown[n].remove();
                 }
                 pipesDown = new Array();
+
+                
+                for(var n = 0; n < miscs.length; n++)
+                {
+                    miscs[n].remove();
+                }
+                miscs = new Array();
             }
 
             ready.x = width/2;
@@ -141,7 +150,8 @@ function setGameStage(newGameStage)
             .to({y: -90}, 1000)
             .easing(Tween.Easing.Elastic.In).delay(1500).start();
 
-            bird.playAnimation({loop: 0, pingpong: true, duration: 600});
+            bird.playAnimation({loop: 0, pingpong: true, duration: 300});
+            random = new Random(1);
         break;
 
         /* 
@@ -207,14 +217,15 @@ function loop()
 }
 
 /*
- * Bird updating  when the game is running
+ * Bird updating when the game is running
  */
 function updateBird()
 {                     
-    bird.vy += gravity * frameDuration();  //Move bird up or down depending on vertical speed
-    bird.vy *= 0.99;                       //Some friction
-    bird.r = 45 * bird.vy / 1000;          //Rotate bird dependingon vertical speed
-    bird.y += bird.vy * frameDuration();   //Move bird up or down
+    bird.vy += gravity * frameDuration();       //Move bird up or down depending on vertical speed
+    bird.vy *= 0.99;                            //Some friction
+    bird.targetRotate = 45 * bird.vy / 1000;    //Rotate bird dependingon vertical speed
+    bird.r += (bird.targetRotate - bird.r) * 0.7;
+    bird.y += bird.vy * frameDuration();        //Move bird up or down
 }
 
 /*
@@ -225,7 +236,7 @@ function updateWorld()
     /* 
      * Move ground
      */
-    ground.x = - (Date.now() * worldSpeed) % 256;
+    ground.x = - (Date.now() * worldSpeed) % 595;
     ground.y = height - groundHeight;
     
     /*
@@ -234,7 +245,7 @@ function updateWorld()
     for(var n = 0; n < pipesUp.length; n++)
     {
         var pipe = pipesUp[n];
-        pipe.x = width - (Date.now()- pipe.startTime) * worldSpeed;
+        pipe.x = pipe.startX - (Date.now()- pipe.startTime) * worldSpeed;
     }
     
     /*
@@ -243,7 +254,17 @@ function updateWorld()
     for(var n = 0; n < pipesDown.length; n++)
     {
         var pipe = pipesDown[n];
-        pipe.x = width - (Date.now()- pipe.startTime) * worldSpeed;
+        pipe.x = pipe.startX - (Date.now()- pipe.startTime) * worldSpeed;
+    }
+
+    
+    /*
+     * Move miscs objects
+     */
+    for(var n = 0; n < miscs.length; n++)
+    {
+        var misc = miscs[n];
+        misc.x = misc.startX - (Date.now()- misc.startTime) * worldSpeed;
     }
 }
 
@@ -261,32 +282,40 @@ function updatePipes()
         * Compute random height for tube
         * @todo: use a pseudo random number generator to always get same level
         */
-        var topPostion = Math.random() * (height - groundHeight) / 2 + (height - groundHeight) / 2;
+        var topPostion = random.nextFloat() * (height - groundHeight) / 2 + (height - groundHeight) / 2;
         
         /* 
          * Get a random value that determine if we create a pipe upward, downward or both
          * @todo: use a pseudo random number generator to always get same level
          */
-        var rand = Math.floor(Math.random() * 6);
+        var rand = Math.floor(random.nextFloat() * 7);// Math.floor(Math.random() * 7);
 
         /*
          * Create a pipe upward randomly
          */
-        if(rand == 1 || rand == 2 || rand == 3 || rand == 4)
+        if(rand == 1 || rand == 2 || rand == 3 || rand == 4 || rand == 5)
         {
             Ti.API.info("pipe 1");
-            var pipe = tm.addSprite({url: "Resources/flappyBird/pipe.png", width: 125, x: width, y: topPostion, px: 100});
+            var pipe = tm.addSprite({url: "Resources/flappyBird/pipeUp.png", width: 125, x: width + 100, y: topPostion, px: 62});
+            pipe.startX = pipe.x;
             pipe.startTime = Date.now();
             pipesUp.push(pipe);
+
+            var grass = tm.addSprite({url: "Resources/flappyBird/grass.png", x: width + 100, y: height - groundHeight, px: 75, py: 37, layer: 6});
+            grass.startX = grass.x;
+            Ti.API.info("grass.startX = " + grass.startX);
+            grass.startTime = Date.now();
+            miscs.push(grass);
         }
         
         /*
          * Create a pipe downard randomly
          */
-        if(rand == 2 || rand == 3 || rand == 4 || rand == 5)
+        if(rand == 2 || rand == 3 || rand == 4 || rand == 5 || rand == 6)
         {
             Ti.API.info("pipe 2");
-            var pipe = tm.addSprite({url: "Resources/flappyBird/pipe.png", width: 125, x: width, y: topPostion - 150, px: 100, sy: -1});
+            var pipe = tm.addSprite({url: "Resources/flappyBird/pipeDown.png", width: 125, x: width + 100, y: topPostion - 130, px: 62, sy: -1});
+            pipe.startX = pipe.x;
             pipe.startTime = Date.now();
             pipesDown.push(pipe);
         }
@@ -314,7 +343,7 @@ function performCollisions()
     for(var n = 0; n < pipesUp.length; n++)
     {
         var pipe = pipesUp[n];
-        if(bird.x > pipe.x - 20 && bird.x<pipe.x + 145 && bird.y > pipe.y - 20)
+        if(bird.x > pipe.x - 82 && bird.x<pipe.x + 82 && bird.y > pipe.y - 20)
         {
             setGameStage("gameover");
         }
@@ -326,7 +355,7 @@ function performCollisions()
     for(var n = 0; n < pipesDown.length; n++)
     {
         var pipe = pipesDown[n];
-        if(bird.x > pipe.x - 20 && bird.x<pipe.x + 145 && bird.y < pipe.y + 20)
+        if(bird.x > pipe.x - 82 && bird.x<pipe.x + 82 && bird.y < pipe.y + 20)
         {
             setGameStage("gameover");
         }
@@ -366,7 +395,7 @@ function touch(e)
        case "down" :
             if(gameStage == "running")
             {
-                bird.vy = -400;
+                bird.vy = -500;
             }
         break;
 

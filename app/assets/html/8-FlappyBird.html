@@ -399,10 +399,51 @@
 371
 372
 373
-374</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/*</span>
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #888888">/*</span>
 <span style="color: #888888"> * Import TIGL manager</span>
 <span style="color: #888888"> */</span>
 <span style="color: #008800; font-weight: bold">const</span> TIGLManager <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&quot;tiglmanager&quot;</span>);
+
+<span style="color: #888888">/*</span>
+<span style="color: #888888"> * Import Pseudo Random generator</span>
+<span style="color: #888888"> */</span>
+<span style="color: #008800; font-weight: bold">const</span> Random <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&quot;random&quot;</span>);
 
 
 <span style="color: #888888">/*</span>
@@ -426,12 +467,15 @@
 <span style="color: #008800; font-weight: bold">var</span> gameover;                   <span style="color: #888888">//Gameover sprite</span>
 <span style="color: #008800; font-weight: bold">var</span> bird;                       <span style="color: #888888">//Bird sprite</span>
 <span style="color: #008800; font-weight: bold">var</span> gravity <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">1750</span>;             <span style="color: #888888">//Gravity</span>
-<span style="color: #008800; font-weight: bold">var</span> groundHeight <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">128</span>;         <span style="color: #888888">//Ground height</span>
+<span style="color: #008800; font-weight: bold">var</span> groundHeight <span style="color: #333333">=</span> Alloy.isTablet <span style="color: #333333">?</span> <span style="color: #0000DD; font-weight: bold">128</span> <span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">64</span>;         <span style="color: #888888">//Ground height</span>
 
 <span style="color: #008800; font-weight: bold">var</span> pipesUp <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> <span style="color: #007020">Array</span>();      <span style="color: #888888">//Pipes pointing up sprites</span>
 <span style="color: #008800; font-weight: bold">var</span> pipesDown <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> <span style="color: #007020">Array</span>();    <span style="color: #888888">//Pipes pointing down sprites</span>
+<span style="color: #008800; font-weight: bold">var</span> miscs <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> <span style="color: #007020">Array</span>();
 <span style="color: #008800; font-weight: bold">var</span> lastPipeCreateTime <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>;     <span style="color: #888888">//Last time game try of creating pipes</span>
 
+
+<span style="color: #008800; font-weight: bold">var</span> random <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> Random(<span style="color: #0000DD; font-weight: bold">0</span>);
 
 <span style="color: #888888">/*</span>
 <span style="color: #888888"> * Init must be declared as an attribute of the Alloy tag TIGLView (eg: onInit=&quot;init&quot;)</span>
@@ -446,17 +490,18 @@
     <span style="color: #888888">/*</span>
 <span style="color: #888888">     * Load Sky</span>
 <span style="color: #888888">     */</span>
-    tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/sky.jpg&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">2000</span>, height<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">2000</span>, tile<span style="color: #333333">:</span> <span style="color: #008800; font-weight: bold">true</span>, layer<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>});
+    tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/sky.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">2000</span>, height<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">2000</span>, tile<span style="color: #333333">:</span> <span style="color: #008800; font-weight: bold">true</span>, layer<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>});
    
     <span style="color: #888888">/*</span>
 <span style="color: #888888">     * Load Ground</span>
 <span style="color: #888888">     */</span>
+    <span style="color: #888888">// ground = tm.addSprite({url: &quot;Resources/flappyBird/ground.png&quot;, width: 256*50, height: 256, tile: true, layer: 5});</span>
     ground <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/ground.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">256</span><span style="color: #333333">*</span><span style="color: #0000DD; font-weight: bold">50</span>, height<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">256</span>, tile<span style="color: #333333">:</span> <span style="color: #008800; font-weight: bold">true</span>, layer<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">5</span>});
     
     <span style="color: #888888">/*</span>
 <span style="color: #888888">     * Load Bird animation</span>
 <span style="color: #888888">     */</span>
-    bird <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/bird.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">100</span>, height<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">102</span>, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">55</span>, py<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">55</span>, x<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">100</span>, y<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">100</span>, layer<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">1</span>});
+    bird <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/bird.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">128</span>, height<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">128</span>, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">66</span>, py<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">70</span>, x<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">100</span>, y<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">100</span>, layer<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">1</span>});
     
     <span style="color: #888888">/*</span>
 <span style="color: #888888">     * Load gameover</span>
@@ -494,8 +539,8 @@
 <span style="color: #888888"> */</span> 
 <span style="color: #008800; font-weight: bold">function</span> resize(e)
 {
-    width <span style="color: #333333">=</span> e.width;
-    height <span style="color: #333333">=</span> e.height;
+    width <span style="color: #333333">=</span> <span style="color: #007020">parseInt</span>(e.width);
+    height <span style="color: #333333">=</span> <span style="color: #007020">parseInt</span>(e.height);
     ground.y <span style="color: #333333">=</span> height <span style="color: #333333">-</span> groundHeight;
 }
 
@@ -527,6 +572,13 @@
                     pipesDown[n].remove();
                 }
                 pipesDown <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> <span style="color: #007020">Array</span>();
+
+                
+                <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">var</span> n <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; n <span style="color: #333333">&lt;</span> miscs.length; n<span style="color: #333333">++</span>)
+                {
+                    miscs[n].remove();
+                }
+                miscs <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> <span style="color: #007020">Array</span>();
             }
 
             ready.x <span style="color: #333333">=</span> width<span style="color: #333333">/</span><span style="color: #0000DD; font-weight: bold">2</span>;
@@ -535,7 +587,8 @@
             .to({y<span style="color: #333333">:</span> <span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">90</span>}, <span style="color: #0000DD; font-weight: bold">1000</span>)
             .easing(Tween.Easing.Elastic.In).delay(<span style="color: #0000DD; font-weight: bold">1500</span>).start();
 
-            bird.playAnimation({loop<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>, pingpong<span style="color: #333333">:</span> <span style="color: #008800; font-weight: bold">true</span>, duration<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">600</span>});
+            bird.playAnimation({loop<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">0</span>, pingpong<span style="color: #333333">:</span> <span style="color: #008800; font-weight: bold">true</span>, duration<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">300</span>});
+            random <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> Random(<span style="color: #0000DD; font-weight: bold">1</span>);
         <span style="color: #008800; font-weight: bold">break</span>;
 
         <span style="color: #888888">/* </span>
@@ -575,7 +628,7 @@
 <span style="color: #888888">         * Actions, if current game stage is &quot;starting&quot;</span>
 <span style="color: #888888">         */</span>
         <span style="color: #008800; font-weight: bold">case</span> <span style="background-color: #fff0f0">&quot;starting&quot;</span> <span style="color: #333333">:</span>
-            moveWorld();
+            updateWorld();
             bird.y <span style="color: #333333">=</span> (height <span style="color: #333333">-</span> groundHeight) <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.5</span>;
             bird.vy <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>;
             bird.r <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>;
@@ -601,14 +654,15 @@
 }
 
 <span style="color: #888888">/*</span>
-<span style="color: #888888"> * Bird updating  when the game is running</span>
+<span style="color: #888888"> * Bird updating when the game is running</span>
 <span style="color: #888888"> */</span>
 <span style="color: #008800; font-weight: bold">function</span> updateBird()
 {                     
-    bird.vy <span style="color: #333333">+=</span> gravity <span style="color: #333333">*</span> frameDuration();  <span style="color: #888888">//Move bird up or down depending on vertical speed</span>
-    bird.vy <span style="color: #333333">*=</span> <span style="color: #6600EE; font-weight: bold">0.99</span>;                       <span style="color: #888888">//Some friction</span>
-    bird.r <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">45</span> <span style="color: #333333">*</span> bird.vy <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">1000</span>;          <span style="color: #888888">//Rotate bird dependingon vertical speed</span>
-    bird.y <span style="color: #333333">+=</span> bird.vy <span style="color: #333333">*</span> frameDuration();   <span style="color: #888888">//Move bird up or down</span>
+    bird.vy <span style="color: #333333">+=</span> gravity <span style="color: #333333">*</span> frameDuration();       <span style="color: #888888">//Move bird up or down depending on vertical speed</span>
+    bird.vy <span style="color: #333333">*=</span> <span style="color: #6600EE; font-weight: bold">0.99</span>;                            <span style="color: #888888">//Some friction</span>
+    bird.targetRotate <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">45</span> <span style="color: #333333">*</span> bird.vy <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">1000</span>;    <span style="color: #888888">//Rotate bird dependingon vertical speed</span>
+    bird.r <span style="color: #333333">+=</span> (bird.targetRotate <span style="color: #333333">-</span> bird.r) <span style="color: #333333">*</span> <span style="color: #6600EE; font-weight: bold">0.7</span>;
+    bird.y <span style="color: #333333">+=</span> bird.vy <span style="color: #333333">*</span> frameDuration();        <span style="color: #888888">//Move bird up or down</span>
 }
 
 <span style="color: #888888">/*</span>
@@ -619,7 +673,7 @@
     <span style="color: #888888">/* </span>
 <span style="color: #888888">     * Move ground</span>
 <span style="color: #888888">     */</span>
-    ground.x <span style="color: #333333">=</span> <span style="color: #333333">-</span> (<span style="color: #007020">Date</span>.now() <span style="color: #333333">*</span> worldSpeed) <span style="color: #333333">%</span> <span style="color: #0000DD; font-weight: bold">256</span>;
+    ground.x <span style="color: #333333">=</span> <span style="color: #333333">-</span> (<span style="color: #007020">Date</span>.now() <span style="color: #333333">*</span> worldSpeed) <span style="color: #333333">%</span> <span style="color: #0000DD; font-weight: bold">595</span>;
     ground.y <span style="color: #333333">=</span> height <span style="color: #333333">-</span> groundHeight;
     
     <span style="color: #888888">/*</span>
@@ -628,7 +682,7 @@
     <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">var</span> n <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; n <span style="color: #333333">&lt;</span> pipesUp.length; n<span style="color: #333333">++</span>)
     {
         <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> pipesUp[n];
-        pipe.x <span style="color: #333333">=</span> width <span style="color: #333333">-</span> (<span style="color: #007020">Date</span>.now()<span style="color: #333333">-</span> pipe.startTime) <span style="color: #333333">*</span> worldSpeed;
+        pipe.x <span style="color: #333333">=</span> pipe.startX <span style="color: #333333">-</span> (<span style="color: #007020">Date</span>.now()<span style="color: #333333">-</span> pipe.startTime) <span style="color: #333333">*</span> worldSpeed;
     }
     
     <span style="color: #888888">/*</span>
@@ -637,7 +691,17 @@
     <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">var</span> n <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; n <span style="color: #333333">&lt;</span> pipesDown.length; n<span style="color: #333333">++</span>)
     {
         <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> pipesDown[n];
-        pipe.x <span style="color: #333333">=</span> width <span style="color: #333333">-</span> (<span style="color: #007020">Date</span>.now()<span style="color: #333333">-</span> pipe.startTime) <span style="color: #333333">*</span> worldSpeed;
+        pipe.x <span style="color: #333333">=</span> pipe.startX <span style="color: #333333">-</span> (<span style="color: #007020">Date</span>.now()<span style="color: #333333">-</span> pipe.startTime) <span style="color: #333333">*</span> worldSpeed;
+    }
+
+    
+    <span style="color: #888888">/*</span>
+<span style="color: #888888">     * Move miscs objects</span>
+<span style="color: #888888">     */</span>
+    <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">var</span> n <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; n <span style="color: #333333">&lt;</span> miscs.length; n<span style="color: #333333">++</span>)
+    {
+        <span style="color: #008800; font-weight: bold">var</span> misc <span style="color: #333333">=</span> miscs[n];
+        misc.x <span style="color: #333333">=</span> misc.startX <span style="color: #333333">-</span> (<span style="color: #007020">Date</span>.now()<span style="color: #333333">-</span> misc.startTime) <span style="color: #333333">*</span> worldSpeed;
     }
 }
 
@@ -649,38 +713,46 @@
     <span style="color: #888888">/*</span>
 <span style="color: #888888">     * If last update was less than 2s ago, do nothing</span>
 <span style="color: #888888">     */</span>
-   <span style="color: #008800; font-weight: bold">if</span>((<span style="color: #007020">Date</span>.now() <span style="color: #333333">-</span> lastPipeCreateTime) <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">2000</span>)
+   <span style="color: #008800; font-weight: bold">if</span>((<span style="color: #007020">Date</span>.now() <span style="color: #333333">-</span> lastPipeCreateTime) <span style="color: #333333">&gt;</span> <span style="color: #0000DD; font-weight: bold">1500</span>)
    {
        <span style="color: #888888">/*</span>
 <span style="color: #888888">        * Compute random height for tube</span>
 <span style="color: #888888">        * @todo: use a pseudo random number generator to always get same level</span>
 <span style="color: #888888">        */</span>
-        <span style="color: #008800; font-weight: bold">var</span> topPostion <span style="color: #333333">=</span> <span style="color: #007020">Math</span>.random() <span style="color: #333333">*</span> (height <span style="color: #333333">-</span> groundHeight) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">+</span> (height <span style="color: #333333">-</span> groundHeight) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">2</span>;
+        <span style="color: #008800; font-weight: bold">var</span> topPostion <span style="color: #333333">=</span> random.nextFloat() <span style="color: #333333">*</span> (height <span style="color: #333333">-</span> groundHeight) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">+</span> (height <span style="color: #333333">-</span> groundHeight) <span style="color: #333333">/</span> <span style="color: #0000DD; font-weight: bold">2</span>;
         
         <span style="color: #888888">/* </span>
 <span style="color: #888888">         * Get a random value that determine if we create a pipe upward, downward or both</span>
 <span style="color: #888888">         * @todo: use a pseudo random number generator to always get same level</span>
 <span style="color: #888888">         */</span>
-        <span style="color: #008800; font-weight: bold">var</span> rand <span style="color: #333333">=</span> <span style="color: #007020">Math</span>.floor(<span style="color: #007020">Math</span>.random() <span style="color: #333333">*</span> <span style="color: #0000DD; font-weight: bold">5</span>);
+        <span style="color: #008800; font-weight: bold">var</span> rand <span style="color: #333333">=</span> <span style="color: #007020">Math</span>.floor(random.nextFloat() <span style="color: #333333">*</span> <span style="color: #0000DD; font-weight: bold">7</span>);<span style="color: #888888">// Math.floor(Math.random() * 7);</span>
 
         <span style="color: #888888">/*</span>
 <span style="color: #888888">         * Create a pipe upward randomly</span>
 <span style="color: #888888">         */</span>
-        <span style="color: #008800; font-weight: bold">if</span>(rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">3</span>)
+        <span style="color: #008800; font-weight: bold">if</span>(rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">1</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">3</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">4</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">5</span>)
         {
             Ti.API.info(<span style="background-color: #fff0f0">&quot;pipe 1&quot;</span>);
-            <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/pipe.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">125</span>, x<span style="color: #333333">:</span> width, y<span style="color: #333333">:</span> topPostion, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">100</span>});
+            <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/pipeUp.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">125</span>, x<span style="color: #333333">:</span> width <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">100</span>, y<span style="color: #333333">:</span> topPostion, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">62</span>});
+            pipe.startX <span style="color: #333333">=</span> pipe.x;
             pipe.startTime <span style="color: #333333">=</span> <span style="color: #007020">Date</span>.now();
             pipesUp.push(pipe);
+
+            <span style="color: #008800; font-weight: bold">var</span> grass <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/grass.png&quot;</span>, x<span style="color: #333333">:</span> width <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">100</span>, y<span style="color: #333333">:</span> height <span style="color: #333333">-</span> groundHeight, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">75</span>, py<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">37</span>, layer<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">6</span>});
+            grass.startX <span style="color: #333333">=</span> grass.x;
+            Ti.API.info(<span style="background-color: #fff0f0">&quot;grass.startX = &quot;</span> <span style="color: #333333">+</span> grass.startX);
+            grass.startTime <span style="color: #333333">=</span> <span style="color: #007020">Date</span>.now();
+            miscs.push(grass);
         }
         
         <span style="color: #888888">/*</span>
 <span style="color: #888888">         * Create a pipe downard randomly</span>
 <span style="color: #888888">         */</span>
-        <span style="color: #008800; font-weight: bold">if</span>(rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">3</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">4</span>)
+        <span style="color: #008800; font-weight: bold">if</span>(rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">2</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">3</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">4</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">5</span> <span style="color: #333333">||</span> rand <span style="color: #333333">==</span> <span style="color: #0000DD; font-weight: bold">6</span>)
         {
             Ti.API.info(<span style="background-color: #fff0f0">&quot;pipe 2&quot;</span>);
-            <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/pipe.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">125</span>, x<span style="color: #333333">:</span> width, y<span style="color: #333333">:</span> topPostion <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">150</span>, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">100</span>, sy<span style="color: #333333">:</span> <span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>});
+            <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> tm.addSprite({url<span style="color: #333333">:</span> <span style="background-color: #fff0f0">&quot;Resources/flappyBird/pipeDown.png&quot;</span>, width<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">125</span>, x<span style="color: #333333">:</span> width <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">100</span>, y<span style="color: #333333">:</span> topPostion <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">130</span>, px<span style="color: #333333">:</span> <span style="color: #0000DD; font-weight: bold">62</span>, sy<span style="color: #333333">:</span> <span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">1</span>});
+            pipe.startX <span style="color: #333333">=</span> pipe.x;
             pipe.startTime <span style="color: #333333">=</span> <span style="color: #007020">Date</span>.now();
             pipesDown.push(pipe);
         }
@@ -708,7 +780,7 @@
     <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">var</span> n <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; n <span style="color: #333333">&lt;</span> pipesUp.length; n<span style="color: #333333">++</span>)
     {
         <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> pipesUp[n];
-        <span style="color: #008800; font-weight: bold">if</span>(bird.x <span style="color: #333333">&gt;</span> pipe.x <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">20</span> <span style="color: #333333">&amp;&amp;</span> bird.x<span style="color: #333333">&lt;</span>pipe.x <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">145</span> <span style="color: #333333">&amp;&amp;</span> bird.y <span style="color: #333333">&gt;</span> pipe.y <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">20</span>)
+        <span style="color: #008800; font-weight: bold">if</span>(bird.x <span style="color: #333333">&gt;</span> pipe.x <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">82</span> <span style="color: #333333">&amp;&amp;</span> bird.x<span style="color: #333333">&lt;</span>pipe.x <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">82</span> <span style="color: #333333">&amp;&amp;</span> bird.y <span style="color: #333333">&gt;</span> pipe.y <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">20</span>)
         {
             setGameStage(<span style="background-color: #fff0f0">&quot;gameover&quot;</span>);
         }
@@ -720,7 +792,7 @@
     <span style="color: #008800; font-weight: bold">for</span>(<span style="color: #008800; font-weight: bold">var</span> n <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">0</span>; n <span style="color: #333333">&lt;</span> pipesDown.length; n<span style="color: #333333">++</span>)
     {
         <span style="color: #008800; font-weight: bold">var</span> pipe <span style="color: #333333">=</span> pipesDown[n];
-        <span style="color: #008800; font-weight: bold">if</span>(bird.x <span style="color: #333333">&gt;</span> pipe.x <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">20</span> <span style="color: #333333">&amp;&amp;</span> bird.x<span style="color: #333333">&lt;</span>pipe.x <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">145</span> <span style="color: #333333">&amp;&amp;</span> bird.y <span style="color: #333333">&lt;</span> pipe.y <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">20</span>)
+        <span style="color: #008800; font-weight: bold">if</span>(bird.x <span style="color: #333333">&gt;</span> pipe.x <span style="color: #333333">-</span> <span style="color: #0000DD; font-weight: bold">82</span> <span style="color: #333333">&amp;&amp;</span> bird.x<span style="color: #333333">&lt;</span>pipe.x <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">82</span> <span style="color: #333333">&amp;&amp;</span> bird.y <span style="color: #333333">&lt;</span> pipe.y <span style="color: #333333">+</span> <span style="color: #0000DD; font-weight: bold">20</span>)
         {
             setGameStage(<span style="background-color: #fff0f0">&quot;gameover&quot;</span>);
         }
@@ -760,7 +832,7 @@
        <span style="color: #008800; font-weight: bold">case</span> <span style="background-color: #fff0f0">&quot;down&quot;</span> <span style="color: #333333">:</span>
             <span style="color: #008800; font-weight: bold">if</span>(gameStage <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;running&quot;</span>)
             {
-                bird.vy <span style="color: #333333">=</span> <span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">400</span>;
+                bird.vy <span style="color: #333333">=</span> <span style="color: #333333">-</span><span style="color: #0000DD; font-weight: bold">500</span>;
             }
         <span style="color: #008800; font-weight: bold">break</span>;
 
@@ -774,6 +846,8 @@
 
 }
 </pre></td></tr></table></div>
+
+  
 
 	</body>
 </html>

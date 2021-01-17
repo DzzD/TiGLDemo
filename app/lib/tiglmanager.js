@@ -32,8 +32,8 @@ class Entity
         this._r = options.r ? options.r : 0;
         this._sx = options.sx ? options.sx : 1;
         this._sy = options.sy ? options.sy : 1;
-        this._px = options.sx ? options.sx : 0;
-        this._py = options.sy ? options.sy : 0;
+        this._px = options.px ? options.px : 0;
+        this._py = options.py ? options.py : 0;
         this._touchEnabled = options.touchEnabled ? options.touchEnabled : false;
         this.onTouchListener = new Array();
 

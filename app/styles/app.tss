@@ -31,7 +31,7 @@
 
 'TIGLView[formFactor=handheld]': 
 {
-    units: "px",
+    units: "hdp",
 }
 
 'WebView' :

@@ -1,10 +1,13 @@
 
 "Window" : 
 {
-    title: "  TIGL: Flappy Bird !"
+    title: "  TIGL: Flappy Bird Reloaded 2021 !"
 }
 
 'WebView' :
 {
-	url: "/html/8-FlappyBird.html" 
+	url: "/html/8-FlappyBird.html" ,
 }
+
+
+
