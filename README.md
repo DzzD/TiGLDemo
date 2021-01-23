@@ -22,7 +22,7 @@ For now **Titanium TIGL module** only support Android devices (you are welcome t
 
 ![TIGL Demo](flappybird.gif)
 
-Prerequiste : [Titanium](https://www.appcelerator.com/) and [GIT](https://git-scm.com/) must be properly installed and running on your machine.
+Prerequiste : [Titanium](https://www.appcelerator.com/) and [GIT](https://git-scm.com/) must be properly installed and running on your machine. To install Tianium you can refer to this [Tutorial](https://github.com/m1ga/from_zero_to_app/blob/master/installation.md).
 
 1. First clone the repository:
 
