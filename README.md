@@ -90,3 +90,7 @@ TIGL is Copyright (c) 2020-2021 by DzzD. All Rights Reserved.
 TIGL is licensed under the GNU general public License (Version 3+). Please
 see the LICENSE file for the full license.
 
+BMFont(https://www.angelcode.com/products/bmfont/) is licensed under ZLIB license.
+
+Tweenjs(https://github.com/tweenjs/tween.js/) is licensed under MIT license.
+
