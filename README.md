@@ -2,7 +2,7 @@
 
 This project, **TIGL Demo**, give an overview of features offered by **TIGL** with **Titanium mobile application**. It also offer latest release of **TIGL module**.
 
-**TIGL** module is intented to enable easy OpenGL rendering of 2d scenegraph from mobile applications. It offer a dedicated Titanium module to use it with [Titanium Appcelerator Application](https://www.appcelerator.com/).
+**TIGL** module is intented to enable easy OpenGL rendering of 2d scenegraph from mobile applications. It offer a dedicated Titanium module to use it with [Titanium Appcelerator Application](https://github.com/m1ga/from_zero_to_app/blob/master/installation.md).
 
 For now **Titanium TIGL module** only support Android devices (you are welcome to help us in porting it to IOS.)
 
