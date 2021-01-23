@@ -13,9 +13,9 @@ For now **Titanium TIGL module** only support Android devices (you are welcome t
 
 ## TIGL is made of three parts :
 
- - An Android scenegraph 2d library using OpenGL
- - A Titanium Java module *wich make the bridge between Titanium and the Android library*
- - A JavaScript module *wich offer an optimized and more convenient way  to controle the java module*
+ - an Android scenegraph 2d library using OpenGL
+ - a Titanium Java module *wich make the bridge between Titanium and the Android library*
+ - a JavaScript module *wich offer an optimized and more convenient way  to controle the java module*
 
 
 ## Getting started
@@ -32,8 +32,6 @@ Prerequiste : [Titanium](https://www.appcelerator.com/) and [GIT](https://git-sc
 	
 
 ## Using TIGL in your own project
-
-**Please keep in mind that this is still a preview release not intended to be used in production**
 
 1. First **install TIGL modules** in your own project :
 
