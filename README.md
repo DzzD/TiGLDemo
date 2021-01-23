@@ -1,4 +1,4 @@
-# TIGL (early preview V1.0)
+# TIGL
 
 This project, **TIGL Demo**, give an overview of features offered by **TIGL** with **Titanium mobile application**. It also offer latest release of **TIGL module**.
 
@@ -37,10 +37,8 @@ Prerequiste : [Titanium](https://www.appcelerator.com/) and [GIT](https://git-sc
 
 1. First **install TIGL modules** in your own project :
 
-	-- Download latest TIGL zip release from this repository and paste the zip file into the root directory of your project (it will be automatically uncompressed and installed at first build of your project).
+	- Download latest TIGL zip release (fr.dzzd.tigl-android-X.X.X.zip(https://github.com/DzzD/TIGLDemo/releases/)) from this repository and paste the zip file into the root folder of your project (it will be automatically uncompressed and installed at first build of your project).
 	
-	-- Or alternativly you can also copy paste TIGLDemo module directory and tiglmanager.js module file to your own project.
-
 
 2. Enable TIGL module in **tiapp.xml**
 
@@ -63,6 +61,26 @@ Prerequiste : [Titanium](https://www.appcelerator.com/) and [GIT](https://git-sc
 		function  loop()
 		{
 			this.setEntityPositionById(spriteUid, 50 , 50);
+		}
+		
+	Or with TIGLManager (highly recommended)
+	
+	
+	
+		const TIGLManager = require("tiglmanager");
+		var tm;
+		var  sprite;
+		
+		function  init()
+		{
+			tm = new TIGLManager(this);
+			sprite=tm.addSprite({url: "Resources/sprite.png"});
+		}
+		
+		function  loop()
+		{
+			sprite.x++;
+			sprite.x %= 100;
 		}
 	
 
