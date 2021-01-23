@@ -37,7 +37,7 @@ Prerequiste : [Titanium](https://www.appcelerator.com/) and [GIT](https://git-sc
 
 1. First **install TIGL modules** in your own project :
 
-	- Download latest TIGL zip release (fr.dzzd.tigl-android-X.X.X.zip(https://github.com/DzzD/TIGLDemo/releases/)) from this repository and paste the zip file into the root folder of your project (it will be automatically uncompressed and installed at first build of your project).
+	- Download latest TIGL zip [release](https://github.com/DzzD/TIGLDemo/releases/) (fr.dzzd.tigl-android-X.X.X.zip) from this repository and paste the zip file into the root folder of your project (it will be automatically uncompressed and installed at first build of your project).
 	
 
 2. Enable TIGL module in **tiapp.xml**
