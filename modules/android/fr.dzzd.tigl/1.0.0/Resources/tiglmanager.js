@@ -26,6 +26,8 @@ class Entity
         this.rotationDirty = false;
         this.scaleDirty = false;
         this.pivotDirty = false;
+        this._parent = null;
+        this._childs = new Array();
         this._layer = options.layer ? options.layer : 1;
         this._x = options.x ? options.x : 0
         this._y = options.y ? options.y : 0;
@@ -34,6 +36,8 @@ class Entity
         this._sy = options.sy ? options.sy : 1;
         this._px = options.px ? options.px : 0;
         this._py = options.py ? options.py : 0;
+        this._width = options.width ? options.width : 0;
+        this._height = options.height ? options.height : 0;
         this._touchEnabled = options.touchEnabled ? options.touchEnabled : false;
         this.onTouchListener = new Array();
 
@@ -43,6 +47,8 @@ class Entity
     {
         this.tiglManager.removeEntityById(this.id);
     }
+
+
 
     addEventListener(event, callback)
     {
@@ -72,6 +78,21 @@ class Entity
         {
             this.onTouchListener[n].call(this, e);
         }
+    }
+    
+    set parent(parentEntity)
+    {
+        this.tiglManager.setEntityParentById(this.id, parentEntity.id);
+    }
+
+    get parent()
+    {
+        return this._parent;
+    }
+
+    get childs()
+    {
+        return this._childs;
     }
 
     set layer(value)
@@ -164,6 +185,15 @@ class Entity
         return this._py;
     }
 
+    get width()
+    {
+        return this._width;
+    }
+
+    get height()
+    {
+        return this._height;
+    }
     
     set touchEnabled(value)
     {
@@ -192,6 +222,64 @@ class Sprite extends Entity
 
 }
 
+
+class Text extends Entity
+{
+    constructor(options, tiglManager)
+    {
+        super(options, tiglManager);
+        
+        // this.textDirty = false;
+        this.colorDirty = false;
+        this.outlineColorDirty = false;
+        this._text = options.text ? options.text : "";
+        this._color = options.color ? options.color : 0x88888888;
+        this._outlineColor = options.outlineColor ? options.outlineColor : 0x0;
+    }
+
+    set text(value)
+    {
+        // this.textDirty = this.textDirty || (this._text != value);
+        if(this._text != value) 
+        {
+            let newSize = this.tiglManager.tiglView.setEntityTextById(this.id, value);
+            this._width = newSize.width;
+            this._height = newSize.height;
+        }
+        this._text = value;
+    }
+
+    get text()
+    {
+        return this._text;
+    }
+
+    set color(value)
+    {
+        this.colorDirty = this.colorDirty || (this._color != value);
+        this._color = value;
+    }
+
+    get color()
+    {
+        return this._color;
+    }
+
+    
+    set outlineColor(value)
+    {
+        this.outlineColorDirty = this.outlineColorDirty || (this._outlineColor != value);
+        this._outlineColor = value;
+    }
+
+    get outlineColor()
+    {
+        return this._outlineColor;
+    }
+
+}
+
+
 class TIGLManager
 {
     constructor(tiglView)
@@ -204,11 +292,32 @@ class TIGLManager
         this.timeDataSending = 0;
     }
 
+    setSceneScale(sx, sy)
+    {
+        this.tiglView.setSceneScale(sx, sy);
+    }
+
     addSprite(options)
     {
         let id = this.tiglView.addSprite(options);
-        let entity = new Sprite(options, this)
+        let entity = new Sprite(options, this);
         entity.id = id;
+        let size = this.tiglView.getEntitySizeById(id);
+        entity._width = size.width;
+        entity._height = size.height;
+        this.entities.set(id, entity);
+        return entity;
+    }
+
+    
+    addText(options)
+    {
+        let id = this.tiglView.addText(options);
+        let entity = new Text(options, this);
+        entity.id = id;
+        let size = this.tiglView.getEntitySizeById(id);
+        entity._width = size.width;
+        entity._height = size.height;
         this.entities.set(id, entity);
         return entity;
     }
@@ -217,6 +326,22 @@ class TIGLManager
     {
         this.entities.delete(id);
         this.tiglView.removeEntityById(id);
+    }
+
+    setEntityParentById(id, parentId)
+    {
+        var entity = this.getEntityById(id);
+        var parent = this.getEntityById(parentId);
+        var currentParent = entity.parent;
+        if(currentParent != null)
+        {
+            var index = currentParent.childs.indexOf(entity);
+            currentParent.childs.splice(index, 1);
+        }
+        entity._parent = parent;
+        parent.childs.push(entity);
+        this.tiglView.setEntityParentById(id, parentId);
+        
     }
 
     getEntities()
@@ -256,13 +381,23 @@ class TIGLManager
 
     _updateSceneDatas()
     {
+        /* 
+         * GLEntity properties
+         */
         let positionsPackedXY = Array();
         let rotationsPackedR = Array();
         let scalesPackedSxSy = Array();
         let pivotsPackedPxPy = Array();
 
         /*
-         * Process modified properties
+         * GLText & other properties
+         */
+        // let textPacked = Array();
+        let colorPacked = Array();
+        let outlineColorPacked = Array();
+
+        /*
+         * Process and send modified properties
          */
         for (var [id, entity] of this.entities)
         {
@@ -307,6 +442,23 @@ class TIGLManager
                     pivotsPackedPxPy.push(packedPxPy);
                 }
             }
+
+            
+            if(entity.colorDirty)
+            {
+                entity.colorDirty = false;
+                colorPacked.push(id);
+                colorPacked.push(entity.color);
+            }
+
+            
+            if(entity.outlineColorDirty)
+            {
+                entity.outlineColorDirty = false;
+                outlineColorPacked.push(id);
+                outlineColorPacked.push(entity.outlineColor);
+            }
+            
         }
 
         if(positionsPackedXY.length>0)
@@ -327,6 +479,16 @@ class TIGLManager
         if(pivotsPackedPxPy.length>0)
         {
             this.tiglView.setEntitiesPivotsPacked(pivotsPackedPxPy);
+        }
+
+        if(colorPacked.length>0)
+        {
+            this.tiglView.setEntitiesColorsPacked(colorPacked);
+        }
+
+        if(outlineColorPacked.length>0)
+        {
+            this.tiglView.setEntitiesOutlineColorsPacked(outlineColorPacked);
         }
     }
 }

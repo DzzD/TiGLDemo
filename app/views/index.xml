@@ -11,6 +11,8 @@
 				<Button class="menuButton" onClick="open6TouchEventWithoutTiglManager">Touch Events</Button>
 				<Button class="menuButton" onClick="open7TouchEventWithTiglManager">Touch Events with TIGL Manager</Button>
 				<Button class="menuButton" onClick="open8FlappyBird">Flappy Bird reloaded 2021!</Button>
+				<Button class="menuButton" onClick="open9Hierarchy">Hierarchy</Button>
+				<Button class="menuButton" onClick="open10BitmapFont">Texts &amp; BitmapFont</Button>
 				<Button class="menuButton" onClick="openBenchmark3600">Benchmark 3600 sprites</Button>
 				<Button class="menuButton" onClick="openMoreDemo" color="#aaaaaa">More demos &amp; tutorials soon</Button>
 			</ScrollView>

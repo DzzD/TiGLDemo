@@ -58,7 +58,6 @@ function init()
     /*
      * Load Ground
      */
-    // ground = tm.addSprite({url: "Resources/flappyBird/ground.png", width: 256*50, height: 256, tile: true, layer: 5});
     ground = tm.addSprite({url: "Resources/flappyBird/ground.png", width: 256*50, height: 256, tile: true, layer: 5});
     
     /*

@@ -1,0 +1,19 @@
+
+
+"Window" : 
+{
+    title: "  TIGL: Texts & BitmapFont"
+}
+
+
+
+'TIGLView' :
+{
+	backgroundColor: "#CCCCFF",
+}
+
+
+'WebView' :
+{
+	url: "/html/10-BitmapFont.html" 
+}

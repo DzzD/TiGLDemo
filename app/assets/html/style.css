@@ -13,7 +13,12 @@ body
 	border-top: 0;
 	padding: 20px;
 	overflow: auto;
-	font-size:14;
+	font-size:14px;
+}
+
+h1
+{
+	font-size:24px;
 }
 
 .fileName
@@ -21,5 +26,5 @@ body
 	font-weight:bold;
 	color:#000000;
 	margin-bottom:15px;
-	font-size: 20px;
+	font-size: 16px;
 }

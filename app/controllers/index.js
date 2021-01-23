@@ -55,6 +55,19 @@ function open8FlappyBird()
 }
 
 
+function open9Hierarchy()
+{
+	var view = Alloy.createController('demos/9-Hierarchy').getView();
+	view.open();
+}
+
+function open10BitmapFont()
+{
+	var view = Alloy.createController('demos/10-BitmapFont').getView();
+	view.open();
+}
+
+
 function openMoreDemo()
 {
 	var dialog = Ti.UI.createAlertDialog({

@@ -1,0 +1,10 @@
+
+"Window" : 
+{
+    title: "  TIGL: Hierarchy"
+}
+
+'WebView' :
+{
+	url: "/html/9-Hierarchy.html" ,
+}
