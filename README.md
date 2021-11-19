@@ -1,4 +1,4 @@
-# TIGL
+# TIGL Demo
 
 This project, **TIGL Demo**, give an overview of features offered by **TIGL** with **Titanium mobile application**. It also offer latest release of **TIGL module**.
 
