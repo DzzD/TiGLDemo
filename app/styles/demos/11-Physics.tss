@@ -1,0 +1,19 @@
+
+
+"Window" : 
+{
+    title: "  TIGL: Physics"
+}
+
+
+
+'TIGLView' :
+{
+	backgroundColor: "#AAAAFF",
+}
+
+
+'WebView' :
+{
+	url: "/html/11-Physics.html" 
+}

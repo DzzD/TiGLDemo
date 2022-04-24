@@ -67,6 +67,12 @@ function open10BitmapFont()
 	view.open();
 }
 
+function open11Physics()
+{
+	var view = Alloy.createController('demos/11-Physics').getView();
+	view.open();
+}
+
 
 function openMoreDemo()
 {
