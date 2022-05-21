@@ -2,7 +2,7 @@
 	<Window id="win" class="container" exitOnClose="true">
 		<ActionBar id="actionbar" />
 		<View class="menu">
-			<ScrollView left="10dp" right="10dp" top="10dp" layout="vertical">
+			<ScrollView left="10dp" right="10dp" top="10dp" layout="vertical" scrollType="vertical">
 				<Button class="menuButton" onClick="open1LoadingSprite">Loading sprite</Button>
 				<Button class="menuButton" onClick="open2MovingSprite">Moving sprite</Button>
 				<Button class="menuButton" onClick="open3AnimatingSprite">Animating sprite</Button>
