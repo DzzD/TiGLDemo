@@ -6,7 +6,7 @@ This project, **TIGL Demo**, give an overview of features offered by **TIGL** wi
 
 For now **Titanium TIGL module** only support Android devices (you are welcome to help us in porting it to IOS.)
 
-**TIGL** is still in early development and not yet available as an open source project, note that opensourcing is planned once the project will be more mature.
+**TIGL** is still in early development and available as an open source project here https://github.com/DzzD/TiGL.
 
 [![video](https://user-images.githubusercontent.com/12198339/103648225-cc69bf80-4f5c-11eb-9b5d-bbcaefef211a.png)](https://www.youtube.com/watch?v=6UnXoCNkgOw)
 
